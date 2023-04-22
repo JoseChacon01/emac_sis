@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import home, perfil, autenticacao, desconectar, cadastro_manual, registro, pagina_usuarios
+from core.views import home, perfil, autenticacao, desconectar, cadastro_manual, registro, pagina_usuarios, dados
 from core.views import listar_categoria, cadastrar_categoria, editar_categoria, remover_categoria
 
 urlpatterns = [
@@ -26,7 +26,7 @@ urlpatterns = [
     path('cadastro_manual/', cadastro_manual),
     path('registro/', registro, name='registro'),
     path('pagina_usuarios/<str:categoria_url>/', pagina_usuarios, name='pagina_usuarios'), 
-
+    path('dados/<int:id>/', dados, name='dados'),
 
     path('login/', autenticacao, name='login'), 
     path('logout/', desconectar, name='logout'),

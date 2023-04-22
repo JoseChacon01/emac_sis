@@ -23,6 +23,8 @@
 
     <p><a href="{% url 'pagina_usuarios' 'todos' %}">Consultar usuarios</a></p>
 
+    <p><a href="{% url 'dados' user.id %}">Alterar dados</a></p>
+
     {% if perms.core.Administrador %}
     <h3>Conteudo visevel apenas para o administrador</h3>
     </li>

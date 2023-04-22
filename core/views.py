@@ -114,6 +114,24 @@ def desconectar(request):
 
 
 
+
+
+def dados(request, id):
+    user = Usuario.objects.get(pk=id)
+    form = UsuarioForm(request.POST or None, instance=user)
+    if form.is_valid():
+        form.save()   
+        return redirect('perfil')
+    contexto = {
+        'form': form
+    }    
+    return render(request, 'registro.html', contexto)
+
+
+
+
+
+
 #Categoria
 def listar_categoria(request):       
     categoria = Categorias.objects.all()
