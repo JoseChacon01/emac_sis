@@ -75,11 +75,7 @@ def pagina_usuarios(request, categoria_url):
 
 
 
-
-def cadastro_manual(request):
-    
-
-    user = Usuario.objects.create_user(
+    """ user = Usuario.objects.create_user(
         username='Vilani01',
         email='josevilani02@email.com',
         cpf='02000300000',
@@ -89,11 +85,11 @@ def cadastro_manual(request):
         categoria = Categorias.objects.get(pk=1),
         is_superuser=False)
         
-
-    permission1 = Permission.objects.get(codename='Administrador')
+"""
+def cadastro_manual(request):
+    permission1 = Permission.objects.get(codename='Administrador') 
+    user = Usuario.objects.get(email='josevilani02@email.com')
     user.user_permissions.add(permission1)
-
-
     user.save()
     return redirect('home')   
 
