@@ -7,8 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="shortcut icon" href="/static/img/ws-logo1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/img/logo2.png" type="image/x-icon">
     <link rel="stylesheet" href="/static/login.css">
+    <style type="text/css">
+
+        .terms {
+    color: #f4f5f7;     
+    font-size: 13px;
+  }
+  
+  .terms a {
+    text-decoration: none;
+    color: #EC7253;
+  }
+  
+  .terms a:hover {
+    text-decoration: underline;
+  }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -52,12 +68,10 @@
             </div>
 
             <div class="login_footer">
-                <div class="sign_up">
-                    <p>Não tem uma conta? 
-
-                    <a  href="https://web.whatsapp.com/send?phone=5584986361992" target="_blank"> Fale Conosco! 
-                        <!--instruirá o navegador a criar uma nova guia ou janela do navegador quando o usuário clicar no link.-->
-                      </a>
+                <div class="login_footer">
+                    <div class="terms">
+                        <p>Não possui uma conta? <a href="{% url 'registro' %}">Cadastre-se!</a></p>
+                    </div>
                 </div>
             </div>
         </div>

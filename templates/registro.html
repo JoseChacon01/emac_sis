@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-    <link rel="shortcut icon" href="/static/img/ws-logo1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/img/logo2.png" type="image/x-icon">
     <link rel="stylesheet" href="/static/registro.css">
     <style type="text/css">
 
@@ -16,7 +16,7 @@
             z-index: 90;
             position: relative;
             max-width: 450rem;
-            height: 950px;   
+            height: 990px;   
             margin-left: 50%;
             background-color: rgb(168, 84, 84);
             border-radius: 10px;
@@ -27,30 +27,40 @@
         background-color: #e04e2a; /*botton*/
          cursor: pointer;
 }
+.dif{
+    background-color: #e04e2a; /*botton*/
+}
      </style>
 </head>
 <body>
     
     {% if user.is_authenticated %}
-    <div class="alert" role="alert">
-        <a href="{% url 'home' %}">
-          <button type="button" class="btn btn-light rounded-circle">
-            <img src="/static/img/voltar.png" alt="" width="20px" height="30px">
-          </button>
-        </a>
+    <div class="header">
+        <div class="logo">
+            <a href="{% url 'perfil' %}">
+                <img src="/static/img/logo.png" alt="Logo">
+            </a>
+        </div>
+    </div>
         {% else %}
-        <a href="{% url 'home' %}">
-            <button type="button" class="btn btn-light rounded-circle">
-              <img src="/static/img/voltar.png" alt="" width="20px" height="30px">
-            </button>
-          </a>
+        <div class="header">
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <img src="/static/img/logo.png" alt="Logo">
+                </a>
+            </div>
+        </div>
         {% endif %}
       </div>
 
 
     <div class="login_body">
         <div class="login_box">
+            {% if user.is_authenticated %}
+            <h2>Atualizar cadastro</h2>
+            {% else %}
             <h2>Cadastro</h2>
+            {% endif %}
             <form method="post">
                 {% csrf_token %}
                 <div class="input_box">
@@ -99,17 +109,22 @@
                 </div>
 
 
-    <input type="submit" value="Cadastrar">
+                {% if user.is_authenticated %}
+               <input class="btn" type="submit" value="Atualizar">
+
+               {% else %}
+               <input class="btn" type="submit" value="Cadastrar">
+               {% endif %}
    
             </form>
 
-
+            {% if not user.is_authenticated %}
             <div class="login_footer">
                 <div class="terms">
-                    <p>Esta página é protegida pelo Google reCAPTCHA para garantir que você não é um robô. <a href="#">Saiba mais</a></p>
+                    <p>Já possui uma conta? <a href="{% url 'login' %}">Realizar login!</a></p>
                 </div>
             </div>
-            
+            {% endif %}
         </div>
     </div>
 </body>

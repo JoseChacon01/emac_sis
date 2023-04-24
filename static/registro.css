@@ -172,13 +172,13 @@ body {
   }
   
   .terms {
-    color: #737373;
+    color: #f4f5f7;
     font-size: 13px;
   }
   
   .terms a {
     text-decoration: none;
-    color: #f4f5f7;
+    color: #EC7253;
   }
   
   .terms a:hover {

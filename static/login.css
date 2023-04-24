@@ -154,13 +154,13 @@ body::before {
 }
 
 .terms {
-    color: #737373;
+    color: #f4f5f7;
     font-size: 13px;
 }
 
 .terms a {
     text-decoration: none;
-    color: #b94f4f;
+    color: #EC7253;
 }
 
 .terms a:hover {

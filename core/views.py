@@ -14,6 +14,15 @@ from .forms import UsuarioForm
 #from .forms import UsuarioForm
 
 
+def detalhe_noticia (resquest):
+    return render(resquest, "detalhe_noticia.html")
+
+def noticias (resquest):
+    return render(resquest, "noticias.html")
+
+def pesquisadores (resquest):
+    return render(resquest, "pesquisadores.html")
+
 @login_required
 def perfil(request):
     return render(request, 'perfil.html')
