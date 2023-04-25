@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
+    <title>EMAC - Perfil</title>
     <link rel="shortcut icon" href="../static/img/logo2.png" type="image/x-icon">
 </head>
 <body>
@@ -20,14 +20,12 @@
     <p><a href="{% url 'home' %}">voltar</a></p>
     <p><a href="{% url 'logout' %}">Sair</a></p>
 
-    <p><a href="{% url 'listar_categoria' %}">listar categorias</a></p>
-
-    <p><a href="{% url 'pagina_usuarios' 'todos' %}">Consultar usuarios</a></p>
-
     <p><a href="{% url 'dados' user.id %}">Alterar dados</a></p>
 
     {% if perms.core.Administrador %}
-    <h3>Conteudo visevel apenas para o administrador</h3>
+    <p><a href="{% url 'listar_categoria' %}">Listar categorias</a></p>
+
+    <p><a href="{% url 'pagina_usuarios' 'todos' %}">Consultar usuarios</a></p>
     {% endif %}
 </body>
 </html>

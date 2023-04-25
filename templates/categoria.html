@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categorias</title>
-    <link rel="shortcut icon" href="../static/img/logo2.png" type="image/x-icon">
+    <title>EMAC - Categorias</title>
+    <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <style type="text/css">
 
@@ -35,7 +35,10 @@ body {
    color: aliceblue;
         }
         table{
-          background-color: #EC7253;
+          background-color: rgb(168, 84, 84);
+        }
+        .btn-success{
+          margin-right: 15px;
         }
      </style>
 </head>
@@ -51,8 +54,8 @@ body {
             <thead>
               <tr>
                 <th scope="col">Nome da Categoria</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Remover</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
               </tr>
             </thead>
             
@@ -60,8 +63,8 @@ body {
             <tbody class="table-group-divider">
               <tr>
                 <td>{{categoria.nome}}</td>
-                <td><a href="{% url 'editar_categoria' categoria.id %}"><button type="button" class="btn btn-dark border-dark btn-outline-light"><img src="/static/img/editar.png" alt="" width="40px" height="40px"></button></a></td>
-                <td><a href="{% url 'remover_categoria' categoria.id %}"><button type="button" class="btn btn-dark border-dark btn-outline-light"><img src="/static/img/remover.png" alt="" width="40px" height="40px"></button></a></td>
+                <td><a href="{% url 'editar_categoria' categoria.id %}"><button type="button" class="btn btn-primary border-light">Editar</button></a></td>
+                <td><a href="{% url 'remover_categoria' categoria.id %}"><button type="button" class="btn btn-danger border-light">Excluir</button></a></td>
               </tr>
             </tbody>
             {% empty %}
@@ -72,7 +75,7 @@ body {
           </div>
 
         {% endfor %}
-        <p class="center"><a href="{% url 'cadastrar_categoria' %}"><button type="button" class="btn btn-success border-dark"><img src="/static/img/mais.png" alt="" width="30px" height="30px"> Cadastrar</button></a></p>
+        <p class="center"><a href="{% url 'cadastrar_categoria' %}"><button type="button" class="btn btn-success border-light"><img src="/static/img/mais.png" alt="" width="30px" height="30px"> Cadastrar</button></a></p>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>
