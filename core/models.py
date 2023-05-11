@@ -62,12 +62,17 @@ class Bairro(models.Model):
      cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT) 
 
 class Endereco(models.Model):
+    pais_nac = models.CharField('Pais_nac', max_length=120)
+    cep = models.IntegerField('CEP')
+    estado_nac = models.CharField('Estado_nac', max_length=120)
+    cidade_nac = models.CharField('Cidade_nac', max_length=120)
+    bairro_nac = models.CharField('Bairro_nac', max_length=80)  
     cep = models.IntegerField('CEP')
     endereco = models.CharField('endereco', max_length=120)
     numero = models.IntegerField('Numero')
     complemento = models.CharField('Complemento', max_length=200, null=True)
     usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
-    bairro = models.ForeignKey(Bairro, on_delete=models.PROTECT)
+    
 
 
 

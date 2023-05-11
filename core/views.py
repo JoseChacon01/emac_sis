@@ -9,9 +9,11 @@ from django.contrib.auth.forms import UserCreationForm #Registro: UserCreationFo
 from .forms import  CategoriaForm
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Categorias, Usuario
+from .models import Categorias, Usuario, Endereco
 from .forms import UsuarioForm
+from .forms import EnderecoForm
 #from .forms import UsuarioForm
+
 
 
 def detalhe_noticia (resquest):
@@ -138,6 +140,7 @@ def dados(request, id):
 
 
 #Categoria
+@login_required 
 def listar_categoria(request):       
     categoria = Categorias.objects.all()
     contexto = {
@@ -146,7 +149,7 @@ def listar_categoria(request):
     return render (request, 'categoria.html', contexto)
 
 
-
+@login_required 
 def cadastrar_categoria(request):     
     form = CategoriaForm(request.POST or None)
 
@@ -160,7 +163,7 @@ def cadastrar_categoria(request):
     return render(request, 'categoria_cadastrar.html', contexto)
 
 
-
+@login_required 
 def editar_categoria(request, id): #EDITAR nome da categoria
     categoria = Categorias.objects.get(pk=id)
 
@@ -177,8 +180,63 @@ def editar_categoria(request, id): #EDITAR nome da categoria
     return render (request, 'categoria_cadastrar.html', contexto)
 
 
-
+@login_required 
 def remover_categoria(request, id): 
     categoria = Categorias.objects.get(pk=id) 
     categoria.delete()
     return redirect('listar_categoria')
+
+
+
+
+
+
+
+
+#Endereçooo
+@login_required 
+def listar_endereco(request):       
+    endereco = Endereco.objects.filter(usuario=request.user)
+    contexto = {
+        'todos_endereco': endereco
+    }
+    return render (request, 'endereco.html', contexto)
+
+
+@login_required 
+def cadastrar_endereco(request):     
+    form = EnderecoForm(request.POST or None)
+    if form.is_valid(): 
+        endereco = form.save(commit=False)
+        endereco.usuario = request.user
+        endereco.save()
+        return redirect('listar_endereco') 
+
+    contexto = {
+        'form_endereco': form
+    }
+    return render(request, 'endereco_cadastrar.html', contexto)
+
+
+@login_required 
+def editar_endereco(request, id): #EDITAR nome da categoria
+    endereco = Endereco.objects.get(pk=id)
+
+    form = EnderecoForm(request.POST or None, instance=endereco)
+
+    if form.is_valid():
+        form.save()
+        return redirect('listar_endereco')
+
+    contexto = {
+        'form_endereco': form
+    }    
+
+    return render (request, 'endereco_cadastrar.html', contexto)
+
+
+@login_required 
+def remover_endereco(request, id): 
+    endereco = Endereco.objects.get(pk=id) 
+    endereco.delete()
+    return redirect('listar_endereco')

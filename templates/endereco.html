@@ -1,0 +1,93 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMAC - Endereço</title>
+    <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <style type="text/css">
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background-color: #E08E79;
+  background-size: cover;
+  background-repeat: repeat;
+  font-family: Arial, Helvetica, sans-serif;
+}
+        .center
+        {
+   text-align: right;
+        }
+        .cent
+        {
+   text-align: center;
+        }
+        .cor
+        {
+   color: aliceblue;
+        }
+        table{
+          background-color: rgb(168, 84, 84);
+        }
+        .btn-success{
+          margin-right: 15px;
+        }
+     </style>
+</head>
+<body>
+  <div class="alert" role="alert">
+    <a href="{% url 'perfil' %}">
+      <button type="button" class="btn btn-light rounded-circle">
+        <img src="/static/img/voltar.png" alt="" width="20px" height="30px">
+      </button>
+    </a>
+  </div>
+        <table class="table table-dar text-white table-hove">
+            <thead>
+              <tr>
+                <th scope="col">País</th>
+                <th scope="col">CEP</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">Bairro</th>
+                <th scope="col">Endereço</th>
+                <th scope="col">Número</th>
+                <th scope="col">Complemento</th>
+              </tr>
+            </thead>
+            
+            {% for endereco in todos_endereco %} 
+            <tbody class="table-group-divider">
+              <tr>
+                <td>{{endereco.pais_nac}}</td>
+                <td>{{endereco.cep}}</td>
+                <td>{{endereco.estado_nac}}</td>
+                <td>{{endereco.cidade_nac}}</td>
+                <td>{{endereco.bairro_nac}}</td>
+                <td>{{endereco.endereco}}</td>
+                <td>{{endereco.numero}}</td>
+                <td>{{endereco.complemento}}</td>
+                <td><a href="{% url 'editar_endereco' endereco.id %}"><button type="button" class="btn btn-primary border-light">Editar</button></a></td>
+                <td><a href="{% url 'remover_endereco' endereco.id %}"><button type="button" class="btn btn-danger border-light">Excluir</button></a></td>
+              </tr>
+            </tbody>
+            {% empty %}
+          </table>
+        
+          <div class="alert alert-danger" role="alert">
+            <h3 class="cent">Nenhuma endereço de usuário cadastrado!</h3> 
+          </div>
+
+        {% endfor %}
+        <p class="center"><a href="{% url 'cadastrar_endereco' %}"><button type="button" class="btn btn-success border-light"><img src="/static/img/mais.png" alt="" width="30px" height="30px"> Cadastrar</button></a></p>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>

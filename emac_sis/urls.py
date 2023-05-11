@@ -16,8 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import home, perfil, autenticacao, desconectar, cadastro_manual, registro, pagina_usuarios, dados, pesquisadores
+from core.views import home, perfil, autenticacao, desconectar, cadastro_manual, registro, pagina_usuarios, dados, pesquisadores 
 from core.views import listar_categoria, cadastrar_categoria, editar_categoria, remover_categoria
+from core.views import listar_endereco, cadastrar_endereco, editar_endereco, remover_endereco
 from core.views import noticias, detalhe_noticia
 
 urlpatterns = [
@@ -40,8 +41,15 @@ urlpatterns = [
     path('logout/', desconectar, name='logout'),
 
 
+
     path('categoria/', listar_categoria, name='listar_categoria'),#Categoria
     path('categoria_cadastrar/', cadastrar_categoria, name='cadastrar_categoria'),
     path('categoria_editar/<int:id>/', editar_categoria, name='editar_categoria'),
     path('categoria_remover/<int:id>/', remover_categoria, name='remover_categoria'),
+
+
+    path('endereco/', listar_endereco, name='listar_endereco'),#Endereço
+    path('endereco_cadastrar/', cadastrar_endereco, name='cadastrar_endereco'),
+    path('endereco_editar/<int:id>/', editar_endereco, name='editar_endereco'),
+    path('endereco_remover/<int:id>/', remover_endereco, name='remover_endereco'),
 ]

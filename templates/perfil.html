@@ -21,6 +21,7 @@
     <p><a href="{% url 'logout' %}">Sair</a></p>
 
     <p><a href="{% url 'dados' user.id %}">Alterar dados</a></p>
+    <p><a href="{% url 'listar_endereco' %}">Endereço</a></p>
 
     {% if perms.core.Administrador %}
     <p><a href="{% url 'listar_categoria' %}">Listar categorias</a></p>
