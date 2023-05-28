@@ -16,10 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import home, perfil, autenticacao, desconectar, cadastro_manual, registro, pagina_usuarios, dados, pesquisadores 
-from core.views import listar_categoria, cadastrar_categoria, editar_categoria, remover_categoria
-from core.views import listar_endereco, cadastrar_endereco, editar_endereco, remover_endereco
-from core.views import noticias, detalhe_noticia
+from core.views import *
+
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -52,4 +51,14 @@ urlpatterns = [
     path('endereco_cadastrar/', cadastrar_endereco, name='cadastrar_endereco'),
     path('endereco_editar/<int:id>/', editar_endereco, name='editar_endereco'),
     path('endereco_remover/<int:id>/', remover_endereco, name='remover_endereco'),
+
+
+    #Add the urls patterns :
+    path('password_reset/',auth_views.PasswordResetView.as_view(),name='password_reset'),
+ 
+    path('password_reset/done/',auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
+ 
+    path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
+ 
+    path('reset/done/',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
 ]

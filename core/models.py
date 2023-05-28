@@ -44,22 +44,7 @@ class Pesquisadores(models.Model):
      usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
 
 
-class Pais_Regiao(models.Model):          
-     pais_regiao = models.CharField('Pais_regiao', max_length=120)
 
-
-class Estado(models.Model):
-     estado = models.CharField('Estado', max_length=120)
-     pais_regiao = models.ForeignKey(Pais_Regiao, on_delete=models.PROTECT)
-
-
-class Cidade(models.Model):
-     cidade = models.CharField('Cidade', max_length=120)
-     estado = models.ForeignKey(Estado, on_delete=models.PROTECT)  
-
-class Bairro(models.Model):
-     bairro = models.CharField('Bairro', max_length=80)      
-     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT) 
 
 class Endereco(models.Model):
     pais_nac = models.CharField('Pais_nac', max_length=120)
@@ -67,7 +52,6 @@ class Endereco(models.Model):
     estado_nac = models.CharField('Estado_nac', max_length=120)
     cidade_nac = models.CharField('Cidade_nac', max_length=120)
     bairro_nac = models.CharField('Bairro_nac', max_length=80)  
-    cep = models.IntegerField('CEP')
     endereco = models.CharField('endereco', max_length=120)
     numero = models.IntegerField('Numero')
     complemento = models.CharField('Complemento', max_length=200, null=True)

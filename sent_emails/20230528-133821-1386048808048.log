@@ -1,0 +1,24 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?b?UmVkZWZpbmnDp8OjbyBkZSBzZW5oYSBlbSAxMjcuMC4wLjE6ODAwMCA=?=
+From: webmaster@localhost
+To: josemoreirachacon06@gmail.com
+Date: Sun, 28 May 2023 16:38:21 -0000
+Message-ID: <168529190169.51048.8628506693760956966@LAPTOP-VSPLC8HJ>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Alguém pediu a redefinição de senha para e-mail josemoreirachacon06@gmail.com. Siga o link abaixo:
+http://127.0.0.1:8000{% url "password_reset_confirm" uidb64=uid token=token %}
+Seu nome de usuário, caso você tenha esquecido: 22222222222
+</body>
+</html>
+-------------------------------------------------------------------------------

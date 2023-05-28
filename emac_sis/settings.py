@@ -135,3 +135,6 @@ LOGOUT_REDIRECT_URL = 'home' #Para onde o usuario sera direcionado após Descone
 AUTH_USER_MODEL = 'core.Usuario'
 
 AUTH_PASSWORD_VALIDATORS = [] #retirando a validação de senha
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'

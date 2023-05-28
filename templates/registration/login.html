@@ -41,7 +41,7 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="input_box">
-                    <input required type="text" name="usuario" placeholder="CPF" required placeholder="CPF">
+                    <input required type="text" name="usuario" placeholder="CPF - Apenas Números" required placeholder="CPF">
                 </div>
 
                 <div class="input_box">
@@ -60,11 +60,7 @@
                     <span><input type="checkbox" style="margin: 0;padding: 0; height: 13px;"></span>
                     <span>Lembre-se de mim</span>
                 </div>
-                <div class="help">
-                    <a href="#">
-                        Esqueci minha senha
-                    </a>
-                </div>
+                <div class="help"> <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a> </div>
             </div>
 
             <div class="login_footer">
