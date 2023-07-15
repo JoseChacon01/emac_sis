@@ -1,7 +1,7 @@
 from django.db import models
 from distutils.command.upload import upload
 from django.contrib.auth.models import AbstractUser #Padrão
-
+from datetime import date
 
 
 class Categorias(models.Model):
@@ -22,9 +22,9 @@ class SobreOGrupo(models.Model):
 class Usuario(AbstractUser):
     nome = models.CharField('Nome', max_length=200)
     cpf = models.CharField('CPF', max_length=11, unique=True) #unique não permite que tenha 2 cadastros com o memso dado, nesse caso, o CPF.
-    telefone = models.IntegerField('Telefone')
+    telefone = models.IntegerField('Telefone', null=True)
     imagem = models.ImageField('Imagem', null=True)
-    categoria = models.ForeignKey(Categorias, on_delete=models.PROTECT)
+    categoria = models.ForeignKey(Categorias, on_delete=models.PROTECT, null=True)
 
     USERNAME_FIELD = 'cpf' 
 
@@ -90,23 +90,35 @@ class Projetos(models.Model):
 
 
 
-class Instituicoes(models.Model):
-     nome_instituicao = models.CharField('Nome_instituicao', max_length=200)
+# class Instituicoes(models.Model):
+#      nome_instituicao = models.CharField('Nome_instituicao', max_length=200)
 
 
-class Editoras(models.Model):
-     nome_editora = models.CharField('Nome_editora', max_length=100)
+# class Editoras(models.Model):
+#      nome_editora = models.CharField('Nome_editora', max_length=100)
 
 
 
 
 class Anexos(models.Model):
-     anexos = models.BinaryField('Anexos')
-     descricao = models.CharField('Descricao', max_length=350)
-     nome_periodico = models.CharField('Nome_periodico', max_length=50)
-     resumo = models.CharField('Resumo', max_length=400)
-     data_validacao_anexo = models.DateField('Data_validacao_anexo')
-     issn = models.CharField('ISSN', max_length=70)
-     cadastro = models.ForeignKey(Cadastros, on_delete=models.PROTECT)
-     editoras = models.ForeignKey(Editoras, on_delete=models.PROTECT)
-     instituicoes = models.ForeignKey(Instituicoes, on_delete=models.PROTECT)
+    STATUS_CHOICES = (
+        ('pendente', 'Avaliação Pendente'),
+        ('deferido', 'Deferido'),
+        ('indeferido', 'Indeferido'),
+    )
+
+    data_cadastro = models.DateField('Data_Cadastro', default=date.today)
+    titulo = models.CharField('Título', max_length=50, default='Título Padrão')
+    descricao = models.CharField('Descrição', max_length=350)
+    nome_periodico = models.CharField('Nome do Periódico', max_length=50)
+    arquivo_pdf = models.FileField(upload_to='pdfs/', default='default.pdf')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
+    deferido_por = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True, blank=True, related_name='artigos_deferidos')
+    issn = models.CharField('ISSN', max_length=70)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, default=12)
+    nome_editora = models.CharField('Nome da Editora', max_length=100, default='Editora Padrão')
+    nome_instituicao = models.CharField('Nome da Instituição', max_length=200, default='Instituição Padrão')
+
+    @staticmethod
+    def get_default_pdf():
+        return 'default.pdf'

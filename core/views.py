@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login # as duas funções responsáveis pela autenticação: 1-authenticate - verifica o login e senha; 2- login - realiza a autenticação no sistema.
 from django.contrib.auth import logout #função responsável pelo logout
 from django.contrib.auth.decorators import permission_required #Definindo que o acesso à View só será feito por usuários que tiverem a permissão permissao_adm_1 definida:
@@ -12,10 +13,17 @@ from django.contrib import messages
 from .models import Categorias, Usuario, Endereco
 from .forms import UsuarioForm
 from .forms import EnderecoForm
-#from .forms import UsuarioForm
+from django.shortcuts import get_list_or_404
+from .forms import AddPermissionForm
+from django.shortcuts import get_object_or_404
+from .models import Anexos
+from .forms import AnexosForm
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, get_object_or_404
 
-
-
+def pagina_de_sucesso (resquest):
+    return render(resquest, "pagina_de_sucesso.html")
+                  
 def detalhe_noticia (resquest):
     return render(resquest, "detalhe_noticia.html")
 
@@ -240,3 +248,122 @@ def remover_endereco(request, id):
     endereco = Endereco.objects.get(pk=id) 
     endereco.delete()
     return redirect('listar_endereco')
+
+
+
+# def teste(request, idUsuario):
+#     usuario = Usuario.objects.get(id=idUsuario)
+#     grupoAdmin = Group.objects.get(name='Administradores') 
+#     grupoAdmin.user_set.add(usuario)
+#     return redirect('add-admin')
+
+
+
+#lista de usuarios
+
+def user_list(request):
+    usuario = Usuario.objects.all()
+    context = {'usuario': usuario}
+    return render(request, 'user_list.html', context)
+
+
+#Atribuindo permissões a usuarios
+
+def add_permission(request, user_id):
+    usuario = get_object_or_404(Usuario, id=user_id)
+
+    if request.method == 'POST':
+        form = AddPermissionForm(request.POST)
+        if form.is_valid():
+            permissions = form.cleaned_data['permissions']
+            usuario.user_permissions.set(permissions)
+            return redirect('perfil', user_id=user_id)
+    else:
+        form = AddPermissionForm()
+
+    context = {
+        'form': form,
+        'user': usuario
+    }
+    return render(request, 'add_permission.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@login_required
+def submeter_artigo(request):
+    if request.method == 'POST':
+        form = AnexosForm(request.POST, request.FILES)
+        if form.is_valid():
+            artigo = form.save(commit=False)
+            artigo.usuario = request.user
+            artigo.save()
+            artigo.status = 'pendente'
+            return redirect('pagina_de_sucesso')
+    else:
+        form = AnexosForm()
+    return render(request, 'submeter_artigo.html', {'form': form})
+
+
+
+@login_required
+def listar_artigos(request):
+    if request.user.is_superuser:
+        artigos_pendentes = Anexos.objects.filter(status='pendente')
+        artigos_deferidos = Anexos.objects.exclude(status='pendente')
+    else:
+        artigos_pendentes = Anexos.objects.filter(status='pendente', deferido_por=None)
+        artigos_deferidos = Anexos.objects.filter(deferido_por=request.user)
+    
+    return render(request, 'listar_artigos.html', {'artigos_pendentes': artigos_pendentes, 'artigos_deferidos': artigos_deferidos})
+
+
+
+@login_required
+def meus_artigos(request):
+    artigos = Anexos.objects.filter(usuario=request.user)
+    for artigo in artigos:
+        artigo.disable_exclusao = artigo.status == "deferido"
+    contexto = {'artigos': artigos}
+    return render(request, 'meus_artigos.html', contexto)
+
+
+@login_required
+def excluir_artigo(request, artigo_id):
+    artigo = get_object_or_404(Anexos, id=artigo_id, usuario=request.user)
+    artigo.delete()
+    return redirect('meus_artigos')
+
+
+
+from django.shortcuts import redirect, get_object_or_404
+
+@login_required
+def deferir_artigo(request, artigo_id):
+    artigo = get_object_or_404(Anexos, id=artigo_id, status='pendente')
+    artigo.status = 'deferido'
+    artigo.deferido_por = request.user
+    artigo.save()
+    return redirect('listar_artigos')
+
+@login_required
+def indeferir_artigo(request, artigo_id):
+    artigo = get_object_or_404(Anexos, id=artigo_id, status='pendente')
+    artigo.status = 'indeferido'
+    artigo.deferido_por = request.user
+    artigo.save()
+    return redirect('listar_artigos')

@@ -23,10 +23,18 @@
     <p><a href="{% url 'dados' user.id %}">Alterar dados</a></p>
     <p><a href="{% url 'listar_endereco' %}">Endereço</a></p>
 
+    {% if not perms.core.Administrador %}
+    <p><a href="{% url 'submeter_artigo' %}">Submeter Artigo</a></p>
+    <p><a href="{% url 'meus_artigos' %}">Meus Artigos</a></p>
+    {% endif %}
+
+
     {% if perms.core.Administrador %}
     <p><a href="{% url 'listar_categoria' %}">Listar categorias</a></p>
 
     <p><a href="{% url 'pagina_usuarios' 'todos' %}">Consultar usuarios</a></p>
+    <a href="{% url 'listar_artigos' %}">Listar Artigos</a>
+    <p><a href="{% url 'user_list' %}">CADASTRAR ADMINISTRADOR</a></p>
     {% endif %}
 </body>
 </html>

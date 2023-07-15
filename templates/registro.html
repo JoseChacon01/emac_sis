@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,41 +15,47 @@
     <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'registro1.css' %}">
     <style type="text/css">
-
         .login_body {
             padding: 60px;
             z-index: 90;
             position: relative;
             max-width: 450rem;
-            height: 990px;   
+            height: 990px;
             margin-left: 50%;
             background-color: rgb(168, 84, 84);
             border-radius: 10px;
             box-sizing: border-box;
             transform: translateX(-50%);
         }
+
         .login_body button:hover {
-        background-color: #e04e2a; /*botton*/
-         cursor: pointer;
-}
-.dif{
-    background-color: #e04e2a; /*botton*/
-}
-select{
-          background-color: #E08E79;
-          
+            background-color: #e04e2a;
+            /*botton*/
+            cursor: pointer;
         }
 
-        select:hover{
+        .dif {
+            background-color: #e04e2a;
+            /*botton*/
+        }
+
+        select {
+            background-color: #E08E79;
+
+        }
+
+        select:hover {
             background-color: #5c3131;
         }
-            option{
-                background-color: #5c3131;
-            }
-     </style>
+
+        option {
+            background-color: #5c3131;
+        }
+    </style>
 </head>
+
 <body>
-    
+
     {% if user.is_authenticated %}
     <div class="header">
         <div class="logo">
@@ -57,16 +64,16 @@ select{
             </a>
         </div>
     </div>
-        {% else %}
-        <div class="header">
-            <div class="logo">
-                <a href="{% url 'home' %}">
-                    <img src="/static/img/logo.png" alt="Logo">
-                </a>
-            </div>
+    {% else %}
+    <div class="header">
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img src="/static/img/logo.png" alt="Logo">
+            </a>
         </div>
-        {% endif %}
-      </div>
+    </div>
+    {% endif %}
+    </div>
 
 
     <div class="login_body">
@@ -82,12 +89,12 @@ select{
                     <label for="nomecompleto"><strong>Nome Completo</strong></label><br>
                     {{ form.nome }}
                 </div>
-                
+
                 <div class="input_box">
                     <label for="usuario"><strong>Usuário</strong></label><br>
                     {{ form.username }}
                 </div>
-                
+
                 <div class="input_box">
                     <label for="cpf"><strong>CPF</strong></label><br>
                     {{ form.cpf }}
@@ -98,7 +105,7 @@ select{
                     {{ form.email }}
                 </div>
 
-   
+
                 <div class="input_box">
                     <label for="telefone"><strong>Telefone</strong></label><br>
                     {{ form.telefone }}
@@ -125,12 +132,12 @@ select{
 
 
                 {% if user.is_authenticated %}
-               <input class="btn" type="submit" value="Atualizar">
+                <input class="btn" type="submit" value="Atualizar">
 
-               {% else %}
-               <input class="btn" type="submit" value="Cadastrar">
-               {% endif %}
-   
+                {% else %}
+                <input class="btn" type="submit" value="Cadastrar">
+                {% endif %}
+
             </form>
 
             {% if not user.is_authenticated %}
@@ -143,4 +150,5 @@ select{
         </div>
     </div>
 </body>
+
 </html>

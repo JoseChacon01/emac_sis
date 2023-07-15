@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submeter Artigo</title>
+</head>
+<body>
+    <h1>Submeter Artigo</h1>
+    <a href="{% url 'perfil' %}">Perfil</a>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>

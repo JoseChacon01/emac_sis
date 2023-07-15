@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from core.views import *
+from core.views import add_permission
+
+from django.views.static import serve
+from django.conf import settings
 
 from django.contrib.auth import views as auth_views
 
@@ -61,4 +65,30 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
  
     path('reset/done/',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
+
+
+
+    path('add_permission/<int:user_id>/', add_permission, name='add_permission'),
+    
+    path('user_list/', user_list, name='user_list'),
+
+
+
+
+
+
+    
+
+    path('submeter-artigo/', submeter_artigo, name='submeter_artigo'),
+    path('listar-artigos/', listar_artigos, name='listar_artigos'),
+
+    path('deferir-artigo/<int:artigo_id>/', deferir_artigo, name='deferir_artigo'),
+    path('indeferir-artigo/<int:artigo_id>/', indeferir_artigo, name='indeferir_artigo'),
+
+    path('pagina_de_sucesso/', pagina_de_sucesso, name='pagina_de_sucesso'),
+
+    path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
+
+    path('meus-artigos/', meus_artigos, name='meus_artigos'),
+     path('excluir-artigo/<int:artigo_id>/', excluir_artigo, name='excluir_artigo'),
 ]

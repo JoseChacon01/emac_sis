@@ -48,6 +48,14 @@
         table{
           margin-top: 7px;
         }
+        a{
+          color: aliceblue;
+          text-decoration: none;
+
+        }
+        a:hover{
+          color:#E08E79;
+        }
      </style>
 </head>
 <body>
@@ -98,7 +106,9 @@ campo_select.options['{{categoria_selecionada}}'].selected;
    
         <tbody class="table-group-divider text-white">
           <tr>
-            <td>{{usuario.nome}}</td>
+            <td><ul>
+            <a href="{% url 'add_permission' usuario.id %}">{{ usuario.nome }}</a>
+            </ul></td>
             <td>{{usuario.cpf}}</td>
             <td>{{usuario.telefone}}</td>
             <td>{{usuario.email}}</td>

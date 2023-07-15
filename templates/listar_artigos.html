@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listar Artigos</title>
+</head>
+<body>
+    <h1>Listar Artigos</h1>
+    <a href="{% url 'perfil' %}">Perfil</a>
+    <h2>Artigos Pendentes</h2>
+    {% if artigos_pendentes %}
+        <ul>
+            {% for artigo in artigos_pendentes %}
+                <li>
+                    <h3>{{ artigo.titulo }}</h3>
+                    <p>{{ artigo.descricao }}</p>
+                    <a href="{{ artigo.arquivo_pdf.url }}" target="_blank">Visualizar PDF</a>
+                    
+                    <!-- Opções Deferido e Indeferido -->
+                    <form action="{% url 'deferir_artigo' artigo.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Deferido</button>
+                    </form>
+                    <form action="{% url 'indeferir_artigo' artigo.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Indeferido</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum artigo pendente.</p>
+    {% endif %}
+    
+    <h2>Artigos Deferidos/Indeferidos</h2>
+    {% if artigos_deferidos %}
+        <ul>
+            {% for artigo in artigos_deferidos %}
+                <li>
+                    <h3>{{ artigo.titulo }}</h3>
+                    <p>{{ artigo.descricao }}</p>
+                    <a href="{{ artigo.arquivo_pdf.url }}" target="_blank">Visualizar PDF</a>
+                    <p>Status: {{ artigo.status }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum artigo deferido/indeferido.</p>
+    {% endif %}
+</body>
+</html>

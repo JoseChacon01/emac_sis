@@ -1,3 +1,4 @@
+import os
 """
 Django settings for emac_sis project.
 
@@ -12,8 +13,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Quick-start development settings - unsuitable for production
@@ -77,7 +82,7 @@ WSGI_APPLICATION = 'emac_sis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -118,7 +123,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    'static/'
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Default primary key field type
@@ -137,4 +142,6 @@ AUTH_USER_MODEL = 'core.Usuario'
 AUTH_PASSWORD_VALIDATORS = [] #retirando a validação de senha
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
