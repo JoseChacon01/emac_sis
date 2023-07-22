@@ -21,6 +21,10 @@ class UsuarioForm(UserCreationForm):
         model = Usuario
         fields = ['username', 'password1', 'password2', 'email', 'nome', 'telefone', 'cpf', 'categoria']          
 
+class AdicionarImagemForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['imagem']
 
 class EnderecoForm(ModelForm):
     class Meta:

@@ -13,9 +13,21 @@
     <p>Olá {{ user.username }}</p>
     <p>E-mail: {{ user.email }}</p>
     
-
+    {% if tem_imagem_perfil %}
+        <!-- Exibir a imagem de perfil caso exista -->
+        <img src="{{ user.imagem.url }}" alt="Imagem de Perfil">
+        <br>
+        <!-- Link para excluir a imagem de perfil -->
+        <a href="{% url 'excluir_imagem' %}">Excluir Imagem de Perfil</a>
+        <br>
+        <!-- Link para editar/mudar a imagem de perfil -->
+        <a href="{% url 'editar_imagem' %}">Editar Imagem de Perfil</a>
+    {% else %}
+        <!-- Caso não tenha imagem de perfil, exibir o link "Adicionar Imagem de Perfil" -->
+        <a href="{% url 'adicionar_imagem' %}">Adicionar Imagem de Perfil</a>
+    {% endif %}
     
-    
+    <br><br>
 
     <p><a href="{% url 'home' %}">voltar</a></p>
     <p><a href="{% url 'logout' %}">Sair</a></p>
@@ -34,7 +46,7 @@
 
     <p><a href="{% url 'pagina_usuarios' 'todos' %}">Consultar usuarios</a></p>
     <a href="{% url 'listar_artigos' %}">Listar Artigos</a>
-    <p><a href="{% url 'user_list' %}">CADASTRAR ADMINISTRADOR</a></p>
+    <!-- <p><a href="{% url 'user_list' %}">CADASTRAR ADMINISTRADOR</a></p> -->
     {% endif %}
 </body>
 </html>

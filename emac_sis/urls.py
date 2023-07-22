@@ -74,7 +74,12 @@ urlpatterns = [
 
 
 
-
+    # URL para adicionar a imagem de perfil
+    path('adicionar_imagem/', adicionar_imagem_perfil, name='adicionar_imagem'),
+    # URL para excluir a imagem de perfil
+    path('excluir_imagem/', excluir_imagem_perfil, name='excluir_imagem'),
+    # URL para editar/mudar a imagem de perfil
+    path('editar_imagem/', editar_imagem_perfil, name='editar_imagem'),
 
 
     

@@ -20,6 +20,14 @@ from .models import Anexos
 from .forms import AnexosForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, get_object_or_404
+from .forms import AdicionarImagemForm
+
+
+
+
+def home (resquest):
+    return render(resquest, "index.html")
+
 
 def pagina_de_sucesso (resquest):
     return render(resquest, "pagina_de_sucesso.html")
@@ -33,12 +41,59 @@ def noticias (resquest):
 def pesquisadores (resquest):
     return render(resquest, "pesquisadores.html")
 
+
+
 @login_required
 def perfil(request):
-    return render(request, 'perfil.html')
+     # Recupere o usuário logado
+    user = request.user
 
-def home (resquest):
-    return render(resquest, "index.html")
+    # Verifique se o usuário já tem uma imagem de perfil cadastrada
+    tem_imagem_perfil = bool(user.imagem)
+
+    return render(request, 'perfil.html', {'user': user, 'tem_imagem_perfil': tem_imagem_perfil})
+
+
+
+
+
+
+def adicionar_imagem_perfil(request):
+    if request.method == 'POST':
+        form = AdicionarImagemForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('perfil')  # Redirecionar para a página de perfil após o upload
+    else:
+        form = AdicionarImagemForm()
+    return render(request, 'adicionar_imagem.html', {'form': form})
+
+def excluir_imagem_perfil(request):
+    # Recupere o usuário logado
+    user = request.user
+    # Defina o campo "imagem" do usuário como None (ou limpe o campo)
+    user.imagem = None
+    user.save()
+    return redirect('perfil')  # Redirecionar para a página de perfil após a exclusão
+
+def editar_imagem_perfil(request):
+    if request.method == 'POST':
+        form = AdicionarImagemForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('perfil')  # Redirecionar para a página de perfil após a edição
+    else:
+        form = AdicionarImagemForm(instance=request.user)
+    return render(request, 'editar_imagem.html', {'form': form})
+
+
+
+
+
+
+
+
+
 
 
 
