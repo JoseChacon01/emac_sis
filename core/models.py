@@ -90,14 +90,6 @@ class Projetos(models.Model):
 
 
 
-# class Instituicoes(models.Model):
-#      nome_instituicao = models.CharField('Nome_instituicao', max_length=200)
-
-
-# class Editoras(models.Model):
-#      nome_editora = models.CharField('Nome_editora', max_length=100)
-
-
 
 
 class Anexos(models.Model):
@@ -108,16 +100,17 @@ class Anexos(models.Model):
     )
 
     data_cadastro = models.DateField('Data_Cadastro', default=date.today)
-    titulo = models.CharField('Título', max_length=50, default='Título Padrão')
+    titulo = models.CharField('Título', max_length=50)
     descricao = models.CharField('Descrição', max_length=350)
     nome_periodico = models.CharField('Nome do Periódico', max_length=50)
     arquivo_pdf = models.FileField(upload_to='pdfs/', default='default.pdf')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
     deferido_por = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True, blank=True, related_name='artigos_deferidos')
+    data_deferimento = models.DateTimeField(blank=True, null=True)
     issn = models.CharField('ISSN', max_length=70)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, default=12)
-    nome_editora = models.CharField('Nome da Editora', max_length=100, default='Editora Padrão')
-    nome_instituicao = models.CharField('Nome da Instituição', max_length=200, default='Instituição Padrão')
+    nome_editora = models.CharField('Nome da Editora', max_length=100)
+    nome_instituicao = models.CharField('Nome da Instituição', max_length=200)
 
     @staticmethod
     def get_default_pdf():

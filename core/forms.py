@@ -15,8 +15,9 @@ class CategoriaForm(ModelForm):
     class Meta:
         model = Categorias
         fields = ['nome']   
-
+#
 class UsuarioForm(UserCreationForm):
+    email = forms.EmailField(required=True) 
     class Meta:
         model = Usuario
         fields = ['username', 'password1', 'password2', 'email', 'nome', 'telefone', 'cpf', 'categoria']          
@@ -48,3 +49,8 @@ class AnexosForm(forms.ModelForm):
     class Meta:
         model = Anexos
         fields = ['titulo', 'descricao', 'nome_periodico', 'arquivo_pdf', 'issn', 'nome_editora', 'nome_instituicao']
+
+    def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            for field_name in self.fields:
+                self.fields[field_name].widget.attrs.update({'class': 'input_box', 'required': 'required'})

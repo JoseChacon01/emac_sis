@@ -1,8 +1,45 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Editar Imagem de Perfil</title>
+    <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+
+    <style type="text/css">
+        body {
+            background-color: #E08E79;
+        }
+
+        form {
+            margin: 20px;
+        }
+
+        form input,
+        form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #e04e2a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #EC7253;
+        }
+    </style>
+
 </head>
+
 <body>
     <h1>Editar Imagem de Perfil</h1>
     <form method="post" enctype="multipart/form-data">
@@ -11,4 +48,5 @@
         <button type="submit">Salvar Alterações</button>
     </form>
 </body>
+
 </html>

@@ -1,15 +1,127 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Submeter Artigo</title>
+    <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'registro1.css' %}">
+
+    <style type="text/css">
+        .login_body {
+            padding: 60px;
+            z-index: 90;
+            position: relative;
+            max-width: 450rem;
+            height: 990px;
+            margin-left: 50%;
+            background-color: rgb(168, 84, 84);
+            border-radius: 10px;
+            box-sizing: border-box;
+            transform: translateX(-50%);
+        }
+
+        .login_body button:hover {
+            background-color: #e04e2a;
+            /*botton*/
+            cursor: pointer;
+        }
+
+        .dif {
+            background-color: #e04e2a;
+            /*botton*/
+        }
+
+        select {
+            background-color: #E08E79;
+
+        }
+
+        select:hover {
+            background-color: #5c3131;
+        }
+
+        option {
+            background-color: #5c3131;
+        }
+
+        button {
+    height: 50px;
+    width: 100%;
+    color: #fff;
+    background-color: #EC7253; /*#e50914*/
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    margin-bottom: 10px;
+}
+  
+button:hover   {
+    background-color: #e04e2a; /*botton*/
+    cursor: pointer;
+}
+    </style>
 </head>
+
 <body>
-    <h1>Submeter Artigo</h1>
-    <a href="{% url 'perfil' %}">Perfil</a>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Enviar</button>
-    </form>
+    <div class="header">
+        <div class="logo">
+            <a href="{% url 'perfil' %}">
+                <img src="/static/img/logo.png" alt="Logo">
+            </a>
+        </div>
+    </div>
+
+
+    <div class="login_body">
+        <div class="login_box">
+
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="input_box">
+                    <label for="titulo"><strong>Título</strong></label><br>
+                    {{ form.titulo }}
+                </div>
+
+                <div class="input_box">
+                    <label for="descricao"><strong>Descrição</strong></label><br>
+                    {{ form.descricao }}
+                </div>
+
+                <div class="input_box">
+                    <label for="periodico"><strong>Periódico</strong></label><br>
+                    {{ form.nome_periodico }}
+                </div>
+
+                <div class="input_box">
+                    <label for="arquivo"><strong>Arquivo</strong></label><br>
+                    {{ form.arquivo_pdf }}
+                </div>
+
+                <div class="input_box">
+                    <label for="issn"><strong>ISSN</strong></label><br>
+                    {{ form.issn }}
+                </div>
+
+                <div class="input_box">
+                    <label for="editora"><strong>Editora</strong></label><br>
+                    {{ form.nome_editora }}
+                </div>
+
+                <div class="input_box">
+                    <label for="instituicao"><strong>Instituição</strong></label><br>
+                    {{ form.nome_instituicao }}
+                </div>
+
+
+                <button type="submit">Enviar</button>
+            </form>
+
+        </div>
+    </div>
 </body>
+
 </html>

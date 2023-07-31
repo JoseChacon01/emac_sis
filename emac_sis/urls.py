@@ -95,5 +95,9 @@ urlpatterns = [
     path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
 
     path('meus-artigos/', meus_artigos, name='meus_artigos'),
-     path('excluir-artigo/<int:artigo_id>/', excluir_artigo, name='excluir_artigo'),
+    path('excluir-artigo/<int:artigo_id>/', excluir_artigo, name='excluir_artigo'),
+
+    path('detalhes_artigo/<int:artigo_id>/', detalhes_artigo, name='detalhes_artigo'),
+
+     path('sucesso_add_permission/', sucesso_add_permission, name='sucesso_add_permission'),
 ]

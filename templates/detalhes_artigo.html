@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhes do Artigo</title>
+    <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #E08E79;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            margin-right: 10px;
+            color:azure;
+        }
+        button {
+            height: 45px;
+            width: 240px;
+            background-color: #e04e2a;
+            color:azure;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .linkvolt {
+            color: aliceblue;
+            text-decoration: none;
+        }
+        .linkvolt:hover{
+            color: aliceblue;
+            text-decoration: none;
+        }
+        button:hover {
+            background-color: #EC7253;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes do Artigo</h1>
+        <div class="card">
+            <div class="card-body">
+                <p><strong>Título:</strong> {{ artigo.titulo }}</p>
+                <p><strong>Descrição:</strong> {{ artigo.descricao }}</p>
+                <p><strong>Nome do Periódico:</strong> {{ artigo.nome_periodico }}</p>
+                <p><strong>ISSN:</strong> {{ artigo.issn }}</p>
+                <p><strong>Nome da Editora:</strong> {{ artigo.nome_editora }}</p>
+                <p><strong>Nome da Instituição:</strong> {{ artigo.nome_instituicao }}</p>
+                <p><strong>Data de Cadastro:</strong> {{ artigo.data_cadastro }}</p>
+                <p><strong>Arquivo PDF:</strong> <a href="{{ artigo.arquivo_pdf.url }}" target="_blank">Visualizar</a></p>
+                <p><strong>Status:</strong> {{ artigo.status }}</p>
+                
+                {% if artigo.deferido_por %}
+                    <p><strong>Deferido Por:</strong> {{ artigo.deferido_por.username }}</p>
+                    <p><strong>Data de Deferimento:</strong> {{ artigo.data_deferimento }}</p>
+                {% endif %}
+            </div>
+        </div>
+<br>
+        <h1>Detalhes do Usuário</h1>
+
+        <div class="card">
+            <div class="card-body">
+                <p><strong>Usuario:</strong> {{ artigo.usuario.username }}</p>
+                <p><strong>Nome:</strong> {{ artigo.usuario.nome }}</p>
+                <p><strong>Categoria:</strong> {{ artigo.usuario.categoria }}</p>
+                <p><strong>Telefone:</strong> {{ artigo.usuario.telefone }}</p>
+                <p><strong>E-mail:</strong> {{ artigo.usuario.email }}</p>
+            </div>
+        </div>
+        <button type="submit"><a class="linkvolt" href="{% url 'listar_artigos' %}">Voltar para a Lista de Artigos</a></button> 
+    </div>
+</body>
+</html>

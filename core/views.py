@@ -21,7 +21,8 @@ from .forms import AnexosForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, get_object_or_404
 from .forms import AdicionarImagemForm
-
+from datetime import datetime
+from django.utils import timezone
 
 
 
@@ -322,6 +323,13 @@ def user_list(request):
     return render(request, 'user_list.html', context)
 
 
+
+
+def sucesso_add_permission(request):
+    return render(request, 'sucesso_add_permission.html')
+
+
+
 #Atribuindo permissões a usuarios
 
 def add_permission(request, user_id):
@@ -332,7 +340,7 @@ def add_permission(request, user_id):
         if form.is_valid():
             permissions = form.cleaned_data['permissions']
             usuario.user_permissions.set(permissions)
-            return redirect('perfil', user_id=user_id)
+            return redirect('sucesso_add_permission')
     else:
         form = AddPermissionForm()
 
@@ -341,7 +349,6 @@ def add_permission(request, user_id):
         'user': usuario
     }
     return render(request, 'add_permission.html', context)
-
 
 
 
@@ -374,17 +381,30 @@ def submeter_artigo(request):
     return render(request, 'submeter_artigo.html', {'form': form})
 
 
-
 @login_required
 def listar_artigos(request):
     if request.user.is_superuser:
         artigos_pendentes = Anexos.objects.filter(status='pendente')
-        artigos_deferidos = Anexos.objects.exclude(status='pendente')
+        artigos_deferidos = Anexos.objects.exclude(status='pendente').select_related('deferido_por')
     else:
         artigos_pendentes = Anexos.objects.filter(status='pendente', deferido_por=None)
-        artigos_deferidos = Anexos.objects.filter(deferido_por=request.user)
-    
+        artigos_deferidos = Anexos.objects.filter(deferido_por__isnull=False).select_related('deferido_por')
+
+    # Deixa a primeira letra do status em maiúscula para todos os artigos
+    for artigo in artigos_pendentes:
+        artigo.status = artigo.status.capitalize()
+
+    for artigo in artigos_deferidos:
+        artigo.status = artigo.status.capitalize()
+
     return render(request, 'listar_artigos.html', {'artigos_pendentes': artigos_pendentes, 'artigos_deferidos': artigos_deferidos})
+
+
+
+
+def detalhes_artigo(request, artigo_id):
+    artigo = get_object_or_404(Anexos, id=artigo_id)
+    return render(request, 'detalhes_artigo.html', {'artigo': artigo})
 
 
 
@@ -393,6 +413,7 @@ def meus_artigos(request):
     artigos = Anexos.objects.filter(usuario=request.user)
     for artigo in artigos:
         artigo.disable_exclusao = artigo.status == "deferido"
+        artigo.status = artigo.status.capitalize()
     contexto = {'artigos': artigos}
     return render(request, 'meus_artigos.html', contexto)
 
@@ -412,6 +433,7 @@ def deferir_artigo(request, artigo_id):
     artigo = get_object_or_404(Anexos, id=artigo_id, status='pendente')
     artigo.status = 'deferido'
     artigo.deferido_por = request.user
+    artigo.data_deferimento = timezone.now() 
     artigo.save()
     return redirect('listar_artigos')
 
@@ -420,5 +442,6 @@ def indeferir_artigo(request, artigo_id):
     artigo = get_object_or_404(Anexos, id=artigo_id, status='pendente')
     artigo.status = 'indeferido'
     artigo.deferido_por = request.user
+    artigo.data_deferimento = timezone.now()
     artigo.save()
     return redirect('listar_artigos')

@@ -1,50 +1,171 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Listar Artigos</title>
+    <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+
+    <style type="text/css">
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            background-color: #E08E79;
+            background-size: cover;
+            background-repeat: repeat;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .center {
+            text-align: right;
+        }
+
+        .cent {
+            text-align: center;
+        }
+
+        .cor {
+            color: aliceblue;
+        }
+
+        table {
+            background-color: rgb(168, 84, 84);
+        }
+
+        .btn-success {
+            margin-right: 15px;
+        }
+
+        a {
+            color: aliceblue;
+        }
+    </style>
+
+
 </head>
+
 <body>
-    <h1>Listar Artigos</h1>
-    <a href="{% url 'perfil' %}">Perfil</a>
-    <h2>Artigos Pendentes</h2>
-    {% if artigos_pendentes %}
-        <ul>
+    <div class="alert" role="alert">
+        <a href="{% url 'perfil' %}">
+            <button type="button" class="btn btn-light rounded-circle">
+                <img src="/static/img/voltar.png" alt="" width="20px" height="30px">
+            </button>
+        </a>
+    </div>
+
+    <table class="table table-dar text-white table-hove">
+        <thead>
+            <tr>
+                <th scope="col">Contato</th>
+                <th scope="col">Título</th>
+                <th scope="col">ISSN</th>
+                <th scope="col">Visualisar</th>
+                <th scope="col">Editora</th>
+                <th scope="col">Instituição</th>
+                <th scope="col">Deferir</th>
+                <th scope="col">Indeferir</th>
+                <th scope="col">Visualisar</th>
+              </tr>
+        </thead>
+
+
+        <h2>Artigos Pendentes</h2><br>
+        {% if artigos_pendentes %}
             {% for artigo in artigos_pendentes %}
-                <li>
-                    <h3>{{ artigo.titulo }}</h3>
-                    <p>{{ artigo.descricao }}</p>
-                    <a href="{{ artigo.arquivo_pdf.url }}" target="_blank">Visualizar PDF</a>
-                    
+
+            <tbody class="table-group-divider">
+                <tr>
+                    <td>{{ artigo.usuario.email }}</td>
+                    <td>{{ artigo.titulo }}</td>
+                    <td>{{ artigo.issn }}</td>
+                    <td><a href="{{ artigo.arquivo_pdf.url }}" target="_blank">Artigo</a></td>
+                    <td>{{ artigo.nome_editora }}</td>
+                    <td>{{ artigo.nome_instituicao }}</td>
+
                     <!-- Opções Deferido e Indeferido -->
-                    <form action="{% url 'deferir_artigo' artigo.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit">Deferido</button>
-                    </form>
-                    <form action="{% url 'indeferir_artigo' artigo.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit">Indeferido</button>
-                    </form>
-                </li>
+                    <td><a href="{% url 'deferir_artigo' artigo.id %}"><button type="button" class="btn btn-success border-light">Deferir</button></a></td>
+                    <td><a href="{% url 'indeferir_artigo' artigo.id %}"><button type="button" class="btn btn-danger border-light">Indeferir</button></a></td>
+                    <td><a href="{% url 'detalhes_artigo' artigo.id %}"><button type="button" class="btn btn-primary border-light">Detalhes</button></a></td>
+                </tr>
+            </tbody>
             {% endfor %}
-        </ul>
-    {% else %}
-        <p>Nenhum artigo pendente.</p>
-    {% endif %}
-    
+        
+        {% else %}
+        <div class="alert alert-danger" role="alert">
+            <h3 class="cent">Nenhum artigo pendente.</h3>
+        </div>
+        {% endif %}
+
+    </table>
+
+<br><br><br>
+
+<table class="table table-dar text-white table-hove">
+
+    <thead>
+        <tr>
+            <th scope="col">Contato</th>
+            <th scope="col">Título</th>
+            <!-- <th scope="col">Descrição</th> -->
+            <th scope="col">Visualisar</th>
+            <!-- <th scope="col">ISSN</th> -->
+            <th scope="col">Editora</th>
+            <th scope="col">Instituição</th>
+            <th scope="col">Status</th> 
+            <th scope="col">Deferido Por</th>
+            <th scope="col">Data de Deferimento</th>
+            <th scope="col">Visualisar</th>
+            
+          </tr>
+    </thead>
+
+
     <h2>Artigos Deferidos/Indeferidos</h2>
+
     {% if artigos_deferidos %}
-        <ul>
-            {% for artigo in artigos_deferidos %}
-                <li>
-                    <h3>{{ artigo.titulo }}</h3>
-                    <p>{{ artigo.descricao }}</p>
-                    <a href="{{ artigo.arquivo_pdf.url }}" target="_blank">Visualizar PDF</a>
-                    <p>Status: {{ artigo.status }}</p>
-                </li>
-            {% endfor %}
-        </ul>
+        {% for artigo in artigos_deferidos %}
+
+        <tbody class="table-group-divider">
+            <tr>
+                <td>{{ artigo.usuario.email }}</td>
+                <td>{{ artigo.titulo }}</td>
+                <!-- <td>{{ artigo.descricao }}</td> -->
+                <td><a href="{{ artigo.arquivo_pdf.url }}" target="_blank">Artigo</a></td>
+                <!-- <td>{{ artigo.issn }}</td> -->
+                <td>{{ artigo.nome_editora }}</td>
+                <td>{{ artigo.nome_instituicao }}</td>
+                <td class="{% if artigo.status == 'deferido' %}text-success{% elif artigo.status == 'indeferido' %}text-danger{% endif %}"><strong>{{ artigo.status }}</strong></td>
+                
+                {% if artigo.deferido_por %}
+                <td>{{ artigo.deferido_por.username }}</td>
+                {% endif %}
+                
+                {% if artigo.deferido_por %}
+                <td>{{ artigo.data_deferimento }}</td>
+               {% endif %}
+
+               <td><a href="{% url 'detalhes_artigo' artigo.id %}"><button type="button" class="btn btn-primary border-light">Detalhes</button></a></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+  
     {% else %}
-        <p>Nenhum artigo deferido/indeferido.</p>
+    <div class="alert alert-danger" role="alert">
+        <h3 class="cent">Nenhum artigo deferido/indeferido.</h3>
+    </div>
     {% endif %}
+</table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
