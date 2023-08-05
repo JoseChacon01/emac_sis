@@ -79,6 +79,9 @@
               background: rgb(204, 101, 73);
               background: linear-gradient(0deg, rgba(204, 101, 73) 0%, rgb(188, 95, 69) 100%);
             }
+            .just{
+              text-align: justify;
+            }
 
            
 
@@ -162,25 +165,27 @@
             <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
               <div class="d-flex flex-column align-items-start gap-2">
                 <h3 class="fw-bold">Quem somos</h3>
-                <p class="">O FORMAR Ciências é um Grupo de Estudos e Pesquisas, da Faculdade de Educação da UFScar, que busca articular a produção acadêmica e demais conhecimentos na área de ensino de Ciências com os propósitos da formação inicial e continuada de professores.</p>
+                <p class="just">Bem-vindo ao EMAC – Grupo de Pesquisas em Educação Matemática e Cultura! Somos um grupo fundado em 2012 pela Profa. Dra. Denise Silva Vilela e pelo Prof. Dr. Ademir Caldeira, sediado na Universidade Federal de São Carlos (UFSCar). Nossa equipe é composta por pesquisadores apaixonados e engajados que atuam em diferentes instituições de ensino e pesquisa em todo o país, incluindo a UFSCar, Universidade Federal de Santa Catarina (UFSC), Universidade Federal de Viçosa (UFV), Instituto Federal de Minas Gerais (IFMG), Instituto Federal do Maranhão (IFMA), Instituto Federal de São Paulo (IFSP), Instituto Federal do Rio Grande do Norte (IFRN), Universidade Federal do Triângulo Mineiro (UFTM), Universidade Federal do Rio Grande do Sul (UFRS) e Universidade Estadual do Paraná (UNESPAR).
+                </p>
                 <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="{% url 'sobre' %}">Saber mais</a></button>
               </div>
 
               <div class="d-flex flex-column align-items-start gap-2">
                 <h3 class="fw-bold">Pesquisadores</h3>
-                <p class="">Pesquisa documental sobre o Ensino de Ciências e sobre Educação Ambiental, Formação inicial ou continuada de professores na área de Ciências e no campo da Educação Ambiental, História do Ensino de Ciências, Cências e Educação Ambiental e Desenvolvimento e avaliação de recursos Didáticos na área de Ciências.</p>
+                <p class="just">O Grupo tem como principal característica pensar a educação escolar e a formação de professores(as) – seja no âmbito da ação pedagógica, seja na pesquisa acadêmica – numa perspectiva cultural da Educação Matemática. Por meio de uma abordagem inovadora e comprometida que explora perspectivas teóricas e práticas, nosso grupo está envolvido em áreas de pesquisa essenciais, incluindo Etnomatemática, Modelagem, Lógica, História e Filosofia da Matemática e da Educação Matemática, bem como a Sociologia e Educação Matemática. Nossas investigações abrangem desde o estudo das práticas culturais e sociais relacionadas à matemática até a análise crítica do desenvolvimento histórico e filosófico dessa disciplina fundamental.</p>
                 <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="{% url 'pesquisadores' %}">Saber mais</a></button>
               </div>
 
               <div class="d-flex flex-column align-items-start gap-2">
                 <h3 class="fw-bold">Contribua seu artigo</h3>
-                <p class="">A comunidade cientifica vem crescendo muito nos últimos anos, novas pesquisas e publicações surgem em diversos lugares do país e do mundo a todo momento, que muitas vezes são divulgadas em eventos separadamente e acabam dificultando a sua localização para outros pesquisadores, que necessitam de referências no assunto. Nesse sentido, o Grupo de Pesquisa Educação Matemática e Cultura - EMAC surge com a intenção de reunir a maior quantidade de publicações sobre matemática, disponibilizando um acesso rápido a artigos, livros, monografias, dissertações, teses e vídeos que foram publicadas em anais de eventos, revistas, livrarias ou em sites e que têm grande importância para a Etnomatemática.</p>
+                <p class="just">Nesse sentido, o site do Grupo de Pesquisa em Educação Matemática e Cultura – EMAC – intenciona-se reunir diversas publicações sobre Educação Matemática, nacional e internacional, disponibilizando o acesso a artigos, livros, monografias, dissertações e teses. </p>
                 <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="{% url 'login' %}">Saber mais</a></button>
               </div>
 
               <div class="d-flex flex-column align-items-start gap-2">
                 <h3 class="fw-bold">Artigos</h3>
-                <p class="">OComo um manual de instrução sobre determinados assuntos. Esse material de apoio vai ser qualquer recurso que esteja associado ao contexto educativo, ou seja, que aborde o objeto de estudo e o apresente de forma explicativa para a aquisição do conhecimento Durante a experiencia do site.</p>
+                <p class="just">
+                  Acesse nossa página de artigos e tenha acesso a uma vasta seleção de materiais, incluindo teses, livros, periódicos e muito mais. Além disso, você pode contribuir com a plataforma, registrando-se e submetendo seus próprios materiais para análise. Após o processo de avaliação, seu conteúdo poderá ser publicado em nossa plataforma, alcançando uma audiência ampla e interessada. Não perca essa oportunidade de compartilhar seu conhecimento e fazer parte de nossa comunidade acadêmica e científica!</p>
                 <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="{% url 'artigos_e_projetos' %}">Saber mais</a></button>
               </div>
               </div>
@@ -262,7 +267,15 @@
               <ul class="nav flex-column">
                 <li class="nav-item mb-2"><a href="https://www.ufscar.br/" target="__target" class="nav-link p-0 text-mute text-dark">UFSCar</a></li>
                 <li class="nav-item mb-2"><a href="https://www.uftm.edu.br/" target="__target" class="nav-link p-0 text-mute text-dark">UFTM</a></li>
-                <li class="nav-item mb-2"><a href="https://portal.ifrn.edu.br/campus/canguaretama" target="__target" class="nav-link p-0 text-mute text-dark">IFRN - Canguaretama</a></li>
+                <li class="nav-item mb-2"><a href="https://portal.ifrn.edu.br/" target="__target" class="nav-link p-0 text-mute text-dark">IFRN</a></li>
+
+                <li class="nav-item mb-2"><a href="https://ufsc.br/" target="__target" class="nav-link p-0 text-mute text-dark">UFSC</a></li>
+                <li class="nav-item mb-2"><a href="https://www.ufv.br/" target="__target" class="nav-link p-0 text-mute text-dark">UFV</a></li>
+                <li class="nav-item mb-2"><a href="https://ifmg.edu.br/portal" target="__target" class="nav-link p-0 text-mute text-dark">IFMG</a></li>
+                <li class="nav-item mb-2"><a href="https://portal.ifma.edu.br/" target="__target" class="nav-link p-0 text-mute text-dark">IFMA</a></li>
+                <li class="nav-item mb-2"><a href="https://www.ifsp.edu.br//" target="__target" class="nav-link p-0 text-mute text-dark">IFSP</a></li>
+                <li class="nav-item mb-2"><a href="http://www.ufrgs.br/ufrgs/inicial" target="__target" class="nav-link p-0 text-mute text-dark">UFRGS</a></li>
+                <li class="nav-item mb-2"><a href="https://www.unespar.edu.br/" target="__target" class="nav-link p-0 text-mute text-dark">UNESPAR</a></li>
               </ul>
             </div>
             

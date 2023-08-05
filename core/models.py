@@ -20,6 +20,7 @@ class Usuario(AbstractUser):
     telefone = models.IntegerField('Telefone', null=True)
     imagem = models.ImageField('Imagem', null=True)
     categoria = models.ForeignKey(Categorias, on_delete=models.PROTECT, null=True)
+    username = models.CharField(null=True, max_length=50)
 
     USERNAME_FIELD = 'cpf' 
 

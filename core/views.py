@@ -71,7 +71,7 @@ def perfil(request):
 
 
 
-
+@login_required
 def adicionar_imagem_perfil(request):
     if request.method == 'POST':
         form = AdicionarImagemForm(request.POST, request.FILES, instance=request.user)
@@ -82,6 +82,7 @@ def adicionar_imagem_perfil(request):
         form = AdicionarImagemForm()
     return render(request, 'adicionar_imagem.html', {'form': form})
 
+@login_required
 def excluir_imagem_perfil(request):
     # Recupere o usuário logado
     user = request.user
@@ -90,6 +91,7 @@ def excluir_imagem_perfil(request):
     user.save()
     return redirect('perfil')  # Redirecionar para a página de perfil após a exclusão
 
+@login_required
 def editar_imagem_perfil(request):
     if request.method == 'POST':
         form = AdicionarImagemForm(request.POST, request.FILES, instance=request.user)
@@ -128,11 +130,11 @@ def autenticacao(request):
        else:
         return redirect('login') 
     else:
-        return render(request, 'registration\login.html') 
+        return render(request, 'registration/login.html')
     
 
 
-
+@login_required
 def pagina_usuarios(request, categoria_url): 
     #Listar usuarios do BD
     if categoria_url == 'todos':
@@ -345,6 +347,7 @@ def sucesso_add_permission(request):
 
 #Atribuindo permissões a usuarios
 
+@login_required
 def add_permission(request, user_id):
     usuario = get_object_or_404(Usuario, id=user_id)
 
@@ -414,7 +417,7 @@ def listar_artigos(request):
 
 
 
-
+@login_required
 def detalhes_artigo(request, artigo_id):
     artigo = get_object_or_404(Anexos, id=artigo_id)
     return render(request, 'detalhes_artigo.html', {'artigo': artigo})
@@ -476,6 +479,7 @@ def artigos_e_projetos(request):
 
 
 #SOBRE O GRUPO
+@login_required
 def cadastrar_sobre_o_grupo(request):
     if request.method == 'POST':
         form = SobreOGrupoForm(request.POST, request.FILES)
@@ -494,7 +498,7 @@ def listar_sobre_o_grupo(request):
     return render(request, 'listar_sobre_o_grupo.html', {'grupos': grupos})
 
 
-
+@login_required
 def editar_sobre_o_grupo(request, grupo_id):
     grupo = get_object_or_404(SobreOGrupo, id=grupo_id)
     if request.method == 'POST':
@@ -506,7 +510,7 @@ def editar_sobre_o_grupo(request, grupo_id):
         form = SobreOGrupoForm(instance=grupo)
     return render(request, 'editar_sobre_o_grupo.html', {'form': form})
 
-
+@login_required
 def excluir_sobre_o_grupo(request, grupo_id):
     grupo = get_object_or_404(SobreOGrupo, id=grupo_id)
     grupo.delete()
@@ -518,6 +522,7 @@ def sobre(request):
     return render(request, 'sobre.html', {'grupos': grupos})
 
 
+@login_required
 def cadastrar_pesquisador(request):
     if request.method == 'POST':
         form = PesquisadoresForm(request.POST, request.FILES)
@@ -536,6 +541,7 @@ def listar_pesquisadores(request):
     pesquisadores = Pesquisadores.objects.all()
     return render(request, 'listar_pesquisadores.html', {'pesquisadores': pesquisadores})
 
+@login_required
 def editar_pesquisador(request, pesquisador_id):
     pesquisador = get_object_or_404(Pesquisadores, pk=pesquisador_id)
     if request.method == 'POST':
@@ -548,6 +554,8 @@ def editar_pesquisador(request, pesquisador_id):
         form = PesquisadoresForm(instance=pesquisador)
     return render(request, 'editar_pesquisador.html', {'form': form})
 
+
+@login_required
 def excluir_pesquisador(request, pesquisador_id):
     pesquisador = get_object_or_404(Pesquisadores, id=pesquisador_id)
     pesquisador.delete()
