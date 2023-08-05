@@ -349,7 +349,7 @@
                         <br>
                         <!-- Link para editar/mudar a imagem de perfil -->
                         <a href="{% url 'editar_imagem' %}">Editar Imagem de Perfil</a>
-                        emac_sis/core/views.py    {% else %}
+                        {% else %}
                         <!-- Caso não tenha imagem de perfil, exibir o link "Adicionar Imagem de Perfil" -->
                         <a href="{% url 'adicionar_imagem' %}">Adicionar Imagem de Perfil</a>
                     {% endif %} {% endcomment %}
@@ -396,7 +396,7 @@
                     </a>
                   </li>
 
-                  {% if not perms.core.Administrador %}
+                  
                   <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="{% url 'submeter_artigo' %}">
                       <i class="bi bi-file-earmark-text"></i>
@@ -409,7 +409,7 @@
                       Meus Artigos
                     </a>
                   </li>
-                  {% endif %}  
+                   
                 </ul>
   
                 <!-- Permições Adm - Início-->
@@ -438,6 +438,26 @@
                       Consultar Usuários
                     </a>
                   </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{% url 'listar_sobre_o_grupo' %}">
+                      <svg class="bi">
+                        <svg class="bi"><use xlink:href="#people" /></svg>
+                      </svg>
+                      Sobre o Grupo
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{% url 'listar_pesquisadores' %}">
+                      <svg class="bi">
+                        <svg class="bi"><use xlink:href="#people" /></svg>
+                      </svg>
+                      Cadastrar Pesquisadores
+                    </a>
+                  </li>
+
+
                   <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="{% url 'listar_artigos' %}">
                       <svg class="bi">

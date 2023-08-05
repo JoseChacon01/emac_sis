@@ -8,6 +8,8 @@ from django import forms
 from django.contrib.auth.models import User, Permission
 from .models import Anexos
 from django import forms
+from .models import SobreOGrupo
+from .models import Pesquisadores
 
 
 
@@ -42,7 +44,11 @@ class AddPermissionForm(forms.Form):
 
 
 
-
+class SobreOGrupoForm(forms.ModelForm):
+    class Meta:
+        model = SobreOGrupo
+        fields = ['descricao_grupo', 'imagem_grupo']
+        
 
 
 class AnexosForm(forms.ModelForm):
@@ -54,3 +60,9 @@ class AnexosForm(forms.ModelForm):
             super().__init__(*args, **kwargs)
             for field_name in self.fields:
                 self.fields[field_name].widget.attrs.update({'class': 'input_box', 'required': 'required'})
+
+
+class PesquisadoresForm(forms.ModelForm):
+    class Meta:
+        model = Pesquisadores
+        fields = ['nome', 'urlcurriculo', 'biografia', 'imagem_pesquisador']

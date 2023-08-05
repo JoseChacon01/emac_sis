@@ -13,6 +13,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
         <style>
+          .imgindex{
+            margin-left: 5px;
+            margin-right: 5px;
+          }
           body{
                 background-color: #E08E79; 
             }
@@ -91,12 +95,11 @@
           </a>
     
           <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link text-white">Artigos</a></li>
-            <li class="nav-item"><a href="#" class="nav-link text-white">Projetos</a></li>
+            <li class="nav-item"><a href="{% url 'artigos_e_projetos' %}" class="nav-link text-white">Artigos</a></li>
             <li class="nav-item"><a href="{% url 'pesquisadores' %}" class="nav-link text-white">Pesquisadores</a></li>
             <li class="nav-item"><a href="{% url 'noticias' %}" class="nav-link text-white">Notícias</a></li>
             <li class="nav-item"><a href="#" class="nav-link text-white">Eventos</a></li>
-            <li class="nav-item"><a href="#" class="nav-link text-white">Sobre</a></li>
+            <li class="nav-item"><a href="{% url 'sobre' %}" class="nav-link text-white">Sobre</a></li>
           </ul>
     
           <div class="col-md-3 text-end">
@@ -121,20 +124,22 @@
         </header>
     </div>
     <main>
-        <!-- Nova imagem central -->
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="../static/img/grupo_emac.jpeg" class="d-block w-100 h-50" alt="img-1">
-                <div class="carousel-caption d-none d-md-block">
-                  <h3>Equipe Emac</h3>
-                  <button class="custom-btn btn-1"><a href="{% url 'pesquisadores' %}" class="nav-link text-white">Detalhes</a></button>
-                </div>
-              </div>
-
-            </div>
-          </div>
+<!-- Nova imagem central -->
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for grupo in grupos %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <ul>
+        <img class="imgindex" src="{{ grupo.imagem_grupo.url }}" alt="Imagem do Grupo">
+      </ul>
+      <div class="carousel-caption d-none d-md-block">
+        <h3>Equipe Emac</h3>
+        <button class="custom-btn btn-1"><a href="{% url 'pesquisadores' %}" class="nav-link text-white">Detalhes</a></button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
   
         <div class="">
 
@@ -158,25 +163,25 @@
               <div class="d-flex flex-column align-items-start gap-2">
                 <h3 class="fw-bold">Quem somos</h3>
                 <p class="">O FORMAR Ciências é um Grupo de Estudos e Pesquisas, da Faculdade de Educação da UFScar, que busca articular a produção acadêmica e demais conhecimentos na área de ensino de Ciências com os propósitos da formação inicial e continuada de professores.</p>
-                <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="#">Saber mais</a></button>
+                <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="{% url 'sobre' %}">Saber mais</a></button>
               </div>
 
               <div class="d-flex flex-column align-items-start gap-2">
-                <h3 class="fw-bold">Pesquisa</h3>
+                <h3 class="fw-bold">Pesquisadores</h3>
                 <p class="">Pesquisa documental sobre o Ensino de Ciências e sobre Educação Ambiental, Formação inicial ou continuada de professores na área de Ciências e no campo da Educação Ambiental, História do Ensino de Ciências, Cências e Educação Ambiental e Desenvolvimento e avaliação de recursos Didáticos na área de Ciências.</p>
-                <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="#">Saber mais</a></button>
+                <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="{% url 'pesquisadores' %}">Saber mais</a></button>
               </div>
 
               <div class="d-flex flex-column align-items-start gap-2">
                 <h3 class="fw-bold">Contribua seu artigo</h3>
                 <p class="">A comunidade cientifica vem crescendo muito nos últimos anos, novas pesquisas e publicações surgem em diversos lugares do país e do mundo a todo momento, que muitas vezes são divulgadas em eventos separadamente e acabam dificultando a sua localização para outros pesquisadores, que necessitam de referências no assunto. Nesse sentido, o Grupo de Pesquisa Educação Matemática e Cultura - EMAC surge com a intenção de reunir a maior quantidade de publicações sobre matemática, disponibilizando um acesso rápido a artigos, livros, monografias, dissertações, teses e vídeos que foram publicadas em anais de eventos, revistas, livrarias ou em sites e que têm grande importância para a Etnomatemática.</p>
-                <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="#">Saber mais</a></button>
+                <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="{% url 'login' %}">Saber mais</a></button>
               </div>
 
               <div class="d-flex flex-column align-items-start gap-2">
-                <h3 class="fw-bold">Material de apoio</h3>
+                <h3 class="fw-bold">Artigos</h3>
                 <p class="">OComo um manual de instrução sobre determinados assuntos. Esse material de apoio vai ser qualquer recurso que esteja associado ao contexto educativo, ou seja, que aborde o objeto de estudo e o apresente de forma explicativa para a aquisição do conhecimento Durante a experiencia do site.</p>
-                <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="#">Saber mais</a></button>
+                <button type="button" class="custom-btn btn-1"><a class="text-decoration-none text-white" href="{% url 'artigos_e_projetos' %}">Saber mais</a></button>
               </div>
               </div>
             </div>

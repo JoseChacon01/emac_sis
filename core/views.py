@@ -23,11 +23,20 @@ from django.shortcuts import redirect, get_object_or_404
 from .forms import AdicionarImagemForm
 from datetime import datetime
 from django.utils import timezone
+from .forms import SobreOGrupoForm
+from .models import SobreOGrupo
+from .models import Pesquisadores
+from .forms import PesquisadoresForm
+from django.shortcuts import render
+from .models import Anexos
 
 
+# def home (resquest):
+#     return render(resquest, "index.html")
 
-def home (resquest):
-    return render(resquest, "index.html")
+def home(request):
+    grupos = SobreOGrupo.objects.all()
+    return render(request, 'index.html', {'grupos': grupos})
 
 
 def pagina_de_sucesso (resquest):
@@ -39,9 +48,13 @@ def detalhe_noticia (resquest):
 def noticias (resquest):
     return render(resquest, "noticias.html")
 
-def pesquisadores (resquest):
-    return render(resquest, "pesquisadores.html")
+def pesquisadores(request):
+    pesquisadores = Pesquisadores.objects.all()
+    return render(request, 'pesquisadores.html', {'pesquisadores': pesquisadores})
 
+# def pesquisadores(request, pesquisador_id):
+#     pesquisador = Pesquisadores.objects.get(id=pesquisador_id)
+#     return render(request, 'pesquisadores.html', {'pesquisador': pesquisador})
 
 
 @login_required
@@ -445,3 +458,97 @@ def indeferir_artigo(request, artigo_id):
     artigo.data_deferimento = timezone.now()
     artigo.save()
     return redirect('listar_artigos')
+
+
+#publicado automaticamente
+
+def artigos_e_projetos(request):
+    artigos_deferidos = Anexos.objects.filter(status='deferido')
+
+    # Filtrar os resultados com base no termo de pesquisa
+    query = request.GET.get('q')
+    if query:
+        artigos_deferidos = artigos_deferidos.filter(titulo__icontains=query) | artigos_deferidos.filter(descricao__icontains=query)
+
+    return render(request, 'artigos_e_projetos.html', {'artigos_deferidos': artigos_deferidos})
+
+
+
+
+#SOBRE O GRUPO
+def cadastrar_sobre_o_grupo(request):
+    if request.method == 'POST':
+        form = SobreOGrupoForm(request.POST, request.FILES)
+        if form.is_valid():
+            grupo = form.save(commit=False)
+            grupo.usuario = request.user
+            grupo.save()
+            return redirect('listar_sobre_o_grupo')
+    else:
+        form = SobreOGrupoForm()
+    return render(request, 'cadastrar_sobre_o_grupo.html', {'form': form})
+
+
+def listar_sobre_o_grupo(request):
+    grupos = SobreOGrupo.objects.all()
+    return render(request, 'listar_sobre_o_grupo.html', {'grupos': grupos})
+
+
+
+def editar_sobre_o_grupo(request, grupo_id):
+    grupo = get_object_or_404(SobreOGrupo, id=grupo_id)
+    if request.method == 'POST':
+        form = SobreOGrupoForm(request.POST, request.FILES, instance=grupo)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_sobre_o_grupo')
+    else:
+        form = SobreOGrupoForm(instance=grupo)
+    return render(request, 'editar_sobre_o_grupo.html', {'form': form})
+
+
+def excluir_sobre_o_grupo(request, grupo_id):
+    grupo = get_object_or_404(SobreOGrupo, id=grupo_id)
+    grupo.delete()
+    return redirect('listar_sobre_o_grupo')
+
+
+def sobre(request):
+    grupos = SobreOGrupo.objects.all()
+    return render(request, 'sobre.html', {'grupos': grupos})
+
+
+def cadastrar_pesquisador(request):
+    if request.method == 'POST':
+        form = PesquisadoresForm(request.POST, request.FILES)
+        if form.is_valid():
+            pesquisador = form.save(commit=False)
+            # Defina o usuário do pesquisador com base no usuário logado
+            pesquisador.usuario = request.user
+            pesquisador.save()
+            return redirect('listar_pesquisadores')  # Redirecionar para a página de sucesso após o cadastro
+    else:
+        form = PesquisadoresForm()
+    return render(request, 'cadastrar_pesquisador.html', {'form': form})
+
+
+def listar_pesquisadores(request):
+    pesquisadores = Pesquisadores.objects.all()
+    return render(request, 'listar_pesquisadores.html', {'pesquisadores': pesquisadores})
+
+def editar_pesquisador(request, pesquisador_id):
+    pesquisador = get_object_or_404(Pesquisadores, pk=pesquisador_id)
+    if request.method == 'POST':
+        form = PesquisadoresForm(request.POST, request.FILES, instance=pesquisador)
+        if form.is_valid():
+            form.save()
+            # Redirecionar para a página de lista de pesquisadores após a edição
+            return redirect('listar_pesquisadores')
+    else:
+        form = PesquisadoresForm(instance=pesquisador)
+    return render(request, 'editar_pesquisador.html', {'form': form})
+
+def excluir_pesquisador(request, pesquisador_id):
+    pesquisador = get_object_or_404(Pesquisadores, id=pesquisador_id)
+    pesquisador.delete()
+    return redirect('listar_pesquisadores')

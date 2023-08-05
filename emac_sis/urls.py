@@ -82,7 +82,22 @@ urlpatterns = [
     path('editar_imagem/', editar_imagem_perfil, name='editar_imagem'),
 
 
-    
+    path('cadastrar-sobre-o-grupo/',cadastrar_sobre_o_grupo, name='cadastrar_sobre_o_grupo'),
+    path('listar-sobre-o-grupo/', listar_sobre_o_grupo, name='listar_sobre_o_grupo'),
+    path('editar-sobre-o-grupo/<int:grupo_id>/', editar_sobre_o_grupo, name='editar_sobre_o_grupo'),
+    path('excluir-sobre-o-grupo/<int:grupo_id>/', excluir_sobre_o_grupo, name='excluir_sobre_o_grupo'),
+    path('sobre/', sobre, name='sobre'),
+
+
+
+    path('listar-pesquisadores/', listar_pesquisadores, name='listar_pesquisadores'),
+    path('cadastro-pesquisador/', cadastrar_pesquisador, name='cadastrar_pesquisador'),
+    path('editar-pesquisador/<int:pesquisador_id>/', editar_pesquisador, name='editar_pesquisador'),
+    path('excluir-pesquisador/<int:pesquisador_id>/', excluir_pesquisador, name='excluir_pesquisador'),
+
+
+
+
 
     path('submeter-artigo/', submeter_artigo, name='submeter_artigo'),
     path('listar-artigos/', listar_artigos, name='listar_artigos'),
@@ -99,5 +114,8 @@ urlpatterns = [
 
     path('detalhes_artigo/<int:artigo_id>/', detalhes_artigo, name='detalhes_artigo'),
 
-     path('sucesso_add_permission/', sucesso_add_permission, name='sucesso_add_permission'),
+    path('sucesso_add_permission/', sucesso_add_permission, name='sucesso_add_permission'),
+
+
+    path('artigos_e_projetos/', artigos_e_projetos, name='artigos_e_projetos'),
 ]

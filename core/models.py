@@ -13,11 +13,6 @@ class Categorias(models.Model):
 
 
 
-class SobreOGrupo(models.Model):
-     descricao_grupo = models.CharField('Descricao_grupo', max_length=500)
-     imagem_grupo = models.ImageField('Imagem_grupo')
-
-
 
 class Usuario(AbstractUser):
     nome = models.CharField('Nome', max_length=200)
@@ -34,13 +29,23 @@ class Usuario(AbstractUser):
          ]
 
 
+
+
+class SobreOGrupo(models.Model):
+     descricao_grupo = models.CharField('Descricao_grupo', max_length=1500)
+     imagem_grupo = models.ImageField('Imagem_grupo')
+     usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT, default=12)
+
+
+
 class Pesquisadores(models.Model):
-     curriculo = models.CharField('Curriculo', max_length=150)
-     projetos_vinculados = models.CharField('Projetos_vinculados', max_length=200)
-     artigos_vinculados = models.CharField('Artigos_vinculados', max_length=200)
-     biografia = models.CharField('Biografia', max_length=300)
+     nome = models.CharField('Nome', max_length=200, default='')
+     urlcurriculo = models.URLField('UrlCurriculo', max_length=200, default='')
+     #projetos_vinculados = models.CharField('Projetos_vinculados', max_length=200)
+     #artigos_vinculados = models.CharField('Artigos_vinculados', max_length=200)
+     biografia = models.CharField('Biografia', max_length=600)
      imagem_pesquisador = models.ImageField('Imagem_Pesquisador', null=True)
-     sobreogrupo = models.ForeignKey(SobreOGrupo, on_delete=models.PROTECT)
+     #sobreogrupo = models.ForeignKey(SobreOGrupo, on_delete=models.PROTECT)
      usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
 
 
@@ -83,14 +88,10 @@ class Eventos(models.Model):
 
 
 
-class Projetos(models.Model):
-     cadastro = models.ForeignKey(Cadastros, on_delete=models.PROTECT)
-     pesquisadores = models.ForeignKey(Pesquisadores, on_delete=models.PROTECT)
+# class Projetos(models.Model):
+#      cadastro = models.ForeignKey(Cadastros, on_delete=models.PROTECT)
+#      pesquisadores = models.ForeignKey(Pesquisadores, on_delete=models.PROTECT)
      
-
-
-
-
 
 class Anexos(models.Model):
     STATUS_CHOICES = (
