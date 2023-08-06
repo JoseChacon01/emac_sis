@@ -22,7 +22,8 @@ class Usuario(AbstractUser):
     categoria = models.ForeignKey(Categorias, on_delete=models.PROTECT, null=True)
     username = models.CharField(null=True, max_length=50)
 
-    USERNAME_FIELD = 'cpf' 
+    USERNAME_FIELD = 'cpf'
+    REQUIRED_FIELDS = ['username']
 
     class Meta:  
          permissions = [
