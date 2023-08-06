@@ -225,7 +225,7 @@
 
   <header class="navbar sticky-top bg-dar flex-md-nowrap p-0 shadow" data-bs-theme="dar" style="background:  #DD7960;">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="{% url 'home' %}"
-      style="background:  #DD7960;">EMAC</a>
+      style="background:  #DD7960;">Olá {{ user.username }}</a>
 
     <ul class="navbar-nav flex-row d-md-none">
       <li class="nav-item text-nowrap">
@@ -267,28 +267,27 @@
             style="background-color: #e08e79;">
             <ul class="nav flex-column mb-auto">
 
-              {% comment %} AJUSTAR INPUT DE IMAGEM DE PERFIL... {% endcomment %}
-              {% comment %} {% if tem_imagem_perfil %}
+              
+              {% if tem_imagem_perfil %}
               <!-- Exibir a imagem de perfil caso exista -->
-              <img src="{{ user.imagem.url }}" alt="Imagem de Perfil">
-              <br>
-              <!-- Link para excluir a imagem de perfil -->
-              <a 
-             class="estil" href="{% url 'excluir_imagem' %}">Excluir Imagem de Perfil</a>
-              <br>
-              <!-- Link para editar/mudar a imagem de perfil -->
-              <a href="{% url 'editar_imagem' %}">Editar Imagem de Perfil</a>
-              {% else %}
+              <div style="text-align: center;">
+                  <img class="rounded rounded-5 mx-auto d-block my-3" src="{{ user.imagem.url }}" alt="Imagem de Perfil" width="65" height="65">
+                  <div style="display: flex; justify-content: center; gap: 10px;">
+                      <!-- Link para excluir a imagem de perfil -->
+                      <a href="{% url 'excluir_imagem' %}" style="color: white;"><i class="bi bi-x-square-fill"></i></a>
+                      <!-- Link para editar/mudar a imagem de perfil -->
+                      <a href="{% url 'editar_imagem' %}" style="color: white;"><i class="bi bi-pencil-square"></i></a>
+                  </div>
+              </div>
+          {% else %}
               <!-- Caso não tenha imagem de perfil, exibir o link "Adicionar Imagem de Perfil" -->
-              <a href="{% url 'adicionar_imagem' %}">Adicionar Imagem de Perfil</a>
-              {% endif %} {% endcomment %}
+              <a href="{% url 'adicionar_imagem' %}">
+                  <img class="rounded rounded-5 mx-auto d-block my-3" src="{% static 'img/perfil.png' %}" alt="Adicionar Imagem de Perfil" width="50" height="50">
+              </a>
+          {% endif %}
+          
 
-              <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="#">
-                  <i class="bi bi-person-circle"></i>
-                  Olá {{ user.username }}
-                </a>
-              </li>
+
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="#">
                   <i class="bi bi-inbox"></i>
