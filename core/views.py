@@ -169,7 +169,7 @@ def pagina_usuarios(request, categoria_url):
 """
 def cadastro_manual(request):
     permission1 = Permission.objects.get(codename='Administrador') #Adicionando permissão ao administrador
-    user = Usuario.objects.get(email='josevilani02@email.com')
+    user = Usuario.objects.get(email='josechacon@gmail.com')
     user.user_permissions.add(permission1)
     user.save()
     return redirect('home')   
