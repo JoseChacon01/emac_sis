@@ -93,6 +93,10 @@
     .bd-mode-toggle {
       z-index: 1500;
     }
+
+    body {
+      background-color: #e08e79;
+    }
   </style>
 </head>
 
@@ -225,7 +229,7 @@
 
   <header class="navbar sticky-top bg-dar flex-md-nowrap p-0 shadow" data-bs-theme="dar" style="background:  #DD7960;">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="{% url 'home' %}"
-      style="background:  #DD7960;">Olá {{ user.username }}</a>
+      style="background:  #DD7960;">EMAC</a>
 
     <ul class="navbar-nav flex-row d-md-none">
       <li class="nav-item text-nowrap">
@@ -263,29 +267,38 @@
             <button type="button" class="btn-close bg-light" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu"
               aria-label="Close"></button>
           </div>
-          <div 
-            style="background-color: #e08e79;">
+          <div style="background-color: #e08e79;">
             <ul class="nav flex-column mb-auto">
 
-              
+
               {% if tem_imagem_perfil %}
               <!-- Exibir a imagem de perfil caso exista -->
               <div style="text-align: center;">
-                  <img class="rounded rounded-5 mx-auto d-block my-3" src="{{ user.imagem.url }}" alt="Imagem de Perfil" width="65" height="65">
-                  <div style="display: flex; justify-content: center; gap: 10px;">
-                      <!-- Link para excluir a imagem de perfil -->
-                      <a href="{% url 'excluir_imagem' %}" style="color: white;"><i class="bi bi-x-square-fill"></i></a>
-                      <!-- Link para editar/mudar a imagem de perfil -->
-                      <a href="{% url 'editar_imagem' %}" style="color: white;"><i class="bi bi-pencil-square"></i></a>
-                  </div>
+                <img class="rounded rounded-5 mx-auto d-block my-3" src="{{ user.imagem.url }}" alt="Imagem de Perfil"
+                  width="65" height="65">
+                <div style="display: flex; justify-content: center; gap: 10px;">
+                  <!-- Link para excluir a imagem de perfil -->
+                  <a href="{% url 'excluir_imagem' %}" style="color: white;"><i class="bi bi-x-square-fill"></i></a>
+                  <!-- Link para editar/mudar a imagem de perfil -->
+                  <a href="{% url 'editar_imagem' %}" style="color: white;"><i class="bi bi-pencil-square"></i></a>
+                </div>
               </div>
-          {% else %}
+              {% else %}
               <!-- Caso não tenha imagem de perfil, exibir o link "Adicionar Imagem de Perfil" -->
               <a href="{% url 'adicionar_imagem' %}">
-                  <img class="rounded rounded-5 mx-auto d-block my-3" src="{% static 'img/perfil.png' %}" alt="Adicionar Imagem de Perfil" width="50" height="50">
+                <img class="rounded rounded-5 mx-auto d-block my-3" src="{% static 'img/perfil.png' %}"
+                  alt="Adicionar Imagem de Perfil" width="50" height="50">
               </a>
-          {% endif %}
-          
+              {% endif %}
+
+
+
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center justify-content-center gap-2" style="color: #fafafa;"
+                  href="#">
+                  Olá {{ user.username }}
+                </a>
+              </li>
 
 
               <li class="nav-item">
@@ -300,7 +313,8 @@
 
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" style="color: #fafafa;" href="{% url 'home' %}">
+                <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" style="color: #fafafa;"
+                  href="{% url 'home' %}">
                   <svg class="bi">
                     <use xlink:href="#house-fill" />
                   </svg>
@@ -308,13 +322,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="{% url 'dados' user.id %}">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'dados' user.id %}">
                   <i class="bi bi-pencil-square"></i>
                   Alterar dados
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="{% url 'listar_endereco' %}">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'listar_endereco' %}">
                   <svg class="bi">
                     <use xlink:href="#file-earmark-text" />
                   </svg>
@@ -324,13 +340,15 @@
 
 
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="{% url 'submeter_artigo' %}">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'submeter_artigo' %}">
                   <i class="bi bi-file-earmark-text"></i>
                   Submeter Artigo
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="{% url 'meus_artigos' %}">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'meus_artigos' %}">
                   <i class="bi bi-file-earmark-text"></i>
                   Meus Artigos
                 </a>
@@ -343,7 +361,7 @@
             <h6
               class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
               <span>Permições de Administrador</span>
-              <a class="link-secondary"  href="#" aria-label="Add a new report">
+              <a class="link-secondary" href="#" aria-label="Add a new report">
                 <svg class="bi">
                   <use xlink:href="#plus-circle" />
                 </svg>
@@ -352,7 +370,8 @@
 
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="{% url 'listar_categoria' %}">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'listar_categoria' %}">
                   <svg class="bi">
                     <use xlink:href="#file-earmark-text" />
                   </svg>
@@ -360,7 +379,8 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="{% url 'pagina_usuarios' 'todos' %}">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'pagina_usuarios' 'todos' %}">
                   <svg class="bi">
                     <svg class="bi">
                       <use xlink:href="#people" />
@@ -371,7 +391,8 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="{% url 'listar_sobre_o_grupo' %}">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'listar_sobre_o_grupo' %}">
                   <svg class="bi">
                     <svg class="bi">
                       <use xlink:href="#people" />
@@ -382,7 +403,8 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="{% url 'listar_pesquisadores' %}">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'listar_pesquisadores' %}">
                   <svg class="bi">
                     <svg class="bi">
                       <use xlink:href="#people" />
@@ -394,7 +416,8 @@
 
 
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="{% url 'listar_artigos' %}">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'listar_artigos' %}">
                   <svg class="bi">
                     <use xlink:href="#file-earmark-text" />
                   </svg>
@@ -402,7 +425,8 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;" href="{% url 'pagina_usuarios' 'todos' %}">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'pagina_usuarios' 'todos' %}">
                   <svg class="bi">
                     <use xlink:href="#file-earmark-text" />
                   </svg>
@@ -461,7 +485,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="col">
             <div class="card text-center h-100 bg-dange text-white" style="background: #DD7960;">
               <div class="card-body">
@@ -497,7 +521,7 @@
               <div class="card-body">
                 <h5 class="card-title card-heade">Consultar</h5>
                 <h1 class=" text-center">Eventos</h1>
-                <a href="#"class="btn" style="background: #f5f3f3;">Acessar</a>
+                <a href="#" class="btn" style="background: #f5f3f3;">Acessar</a>
               </div>
             </div>
           </div>
@@ -513,21 +537,21 @@
             </div>
           </div>
 
-
         </div>
 
-      </main>
+
     </div>
+
+    </main>
+  </div>
   </div>
 
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'js/dashboard.js' %}"></script>
-  
-  <script 
-    src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js" 
-    integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" 
-    crossorigin="anonymous">
-  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"
+    integrity="sha384-gdQErvCNWvHQZj6XZM0dNsAoY4v+j5P1XDpNkcM3HJG1Yx04ecqIHk7+4VBOCHOG" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
