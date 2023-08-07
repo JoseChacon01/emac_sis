@@ -34,7 +34,7 @@ class Usuario(AbstractUser):
 
 
 class SobreOGrupo(models.Model):
-     descricao_grupo = models.CharField('Descricao_grupo', max_length=1500)
+     descricao_grupo = models.CharField('Descricao_grupo', max_length=2500)
      imagem_grupo = models.ImageField('Imagem_grupo')
      usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT, default=12)
 
@@ -104,7 +104,7 @@ class Anexos(models.Model):
 
     data_cadastro = models.DateField('Data_Cadastro', default=date.today)
     titulo = models.CharField('Título', max_length=50)
-    descricao = models.CharField('Descrição', max_length=350)
+    descricao = models.CharField('Descrição', max_length=600)
     nome_periodico = models.CharField('Nome do Periódico', max_length=50)
     arquivo_pdf = models.FileField(upload_to='pdfs/', default='default.pdf')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
