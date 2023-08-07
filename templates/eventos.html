@@ -180,7 +180,6 @@
 
 <body>
 
- 
 
   <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
@@ -223,9 +222,8 @@
       </div>
     </header>
 
-
   <div class="container">
-    <h1 class="center">Notícias</h1>
+    <h1 class="center">Eventos</h1>
 
     <div class="row">
       {% for dados in dados_completos %}
@@ -234,13 +232,13 @@
           <img src="/media/{{dados.foto}}" class="bd-placeholder-img card-img-top img-fluid" alt="Foto da Notícia">
           <div id="div" class="card-body">
             <p><strong>Título:</strong> {{ dados.titulo }}</p>
-            <p><strong>Fonte:</strong> {{ dados.fonte }}</p>
-            <p><strong>Público Alvo:</strong> {{ dados.publico_alvo }}</p>
+            <p><strong>Local:</strong> {{ dados.local }}</p>
+            <p><strong>Data do Evento:</strong> {{ dados.data_evento }}</p>
             <p><strong>Data do Cadastro:</strong> {{ dados.data_cadastro }}</p>
-            <p><strong>Validação da Notícia:</strong> {{ dados.data_validacao_noticia }}</p>
-            
+            <p><strong>Tipo do Trabalho:</strong> {{ dados.tipo_do_trabalho }}</p>
+        
           <button type="button" class="btn btn-outline-light me-2" style="background-color: #EC7253;">   
-            <a href="{% url 'detalhe_noticia' cadastro_id=dados.cadastro_id %}" class="nav-link text-white">Ver mais</a></button>
+            <a href="{% url  'detalhe_evento' cadastro_id=dados.cadastro_id %}" class="nav-link text-white">Ver mais</a></button>
 
 
             <!-- Restante do conteúdo do card aqui -->

@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pesquisadores</title>
+    <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+   
+   <style type="text/css">
+    body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background-color: #E08E79;
+  background-size: cover;
+  background-repeat: repeat;
+  font-family: Arial, Helvetica, sans-serif;
+}
+        .center
+        {
+   text-align: right;
+        }
+        .cent
+        {
+   text-align: center;
+        }
+        .cor
+        {
+   color: aliceblue;
+        }
+        table{
+          background-color: rgb(168, 84, 84);
+        }
+        .btn-success{
+          margin-right: 15px;
+        }
+        a{
+            color: aliceblue;
+        }
+    </style>    
+</head>
+<body>
+
+    <div class="alert" role="alert">
+        <a href="{% url 'perfil' %}">
+          <button type="button" class="btn btn-light rounded-circle">
+            <img src="/static/img/voltar.png" alt="" width="20px" height="30px">
+          </button>
+        </a>
+      </div>
+
+    <table class="table table-dar text-white table-hove">
+        <thead>
+          <tr>
+            <th scope="col">Titulo</th>
+            <th scope="col">Fonte</th>
+            <th scope="col">Data do Cadastro</th>
+            <th scope="col">Data da Noticia</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        
+        {% for dados in dados_completos %}
+        <tbody class="table-group-divider">
+          <tr>
+            <td>{{ dados.titulo }} </td>
+            <td>{{dados.fonte }}</td>
+            <td>{{ dados.data_cadastro }}</td>
+            <td>{{ dados.data_validacao_noticia }}</td>
+           
+           
+            <td><a href="{% url 'noticia_editar' cadastro_id=dados.cadastro_id %}"><button type="button" class="btn btn-primary border-light">Editar</button></a></td>
+            <td><a href="{% url 'noticia_remover' cadastro_id=dados.cadastro_id%}"><button type="button" class="btn btn-danger border-light">Excluir</button></a></td>
+          </tr>
+        </tbody>
+        {% empty %}
+      </table>
+    
+      <div class="alert alert-danger" role="alert">
+        <h3 class="cent">Nenhum pesquisador cadastrado!</h3> 
+      </div>
+
+    {% endfor %}
+    <p class="center"><a href="{% url 'cadastro_noticias' %}"><button type="button" class="btn btn-success border-light"><img src="/static/img/mais.png" alt="" width="30px" height="30px"> Cadastrar</button></a></p>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>

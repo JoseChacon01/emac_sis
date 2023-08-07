@@ -88,12 +88,18 @@ class Noticias(models.Model):
      publico_alvo = models.CharField ('Publico_alvo', max_length=150)
      data_validacao_noticia = models.DateField('Data_validacao_noticia')
      cadastro = models.ForeignKey(Cadastros, on_delete=models.PROTECT)
+     urlLink = models.URLField('UrlLink', max_length=200, default='')
+     arquivo_pdf = models.FileField(upload_to='pdfs/', default='default.pdf',null=True)
+     foto = models.ImageField(upload_to='noticias', null=True)
 
 
 class Eventos(models.Model):
      formato = models.CharField('Formato', max_length=50)
      local = models.CharField('Local', max_length=100)
      data_evento = models.DateField('Data_evento')
+     foto = models.ImageField(upload_to='eventos', null=True)
+     urlLink = models.URLField('UrlLink', max_length=200, default='')
+     arquivo_pdf = models.FileField(upload_to='pdfs/', default='default.pdf')
      cadastro = models.ForeignKey(Cadastros, on_delete=models.PROTECT)
 
 

@@ -64,17 +64,17 @@
 	
 
     <div class="container">
-        <h1 class="center">Detalhe da Notícia</h1>
+        <h1 class="center">Detalhe do Evento</h1>
         <div class="card">
             <div class="card-body">
 				<img src="/media/{{dados.foto}}" class="bd-placeholder-img img-fluid " alt="Foto da Notícia">
                 <p><strong>Título:</strong> {{ dados.titulo }}</p>
-				<p><strong>Público Alvo:</strong> {{ dados.publico_alvo }}</p>
 				<p><strong>Descrição:</strong> {{ dados.descricao }}</p>
-				<p><strong>Fonte:</strong> {{ dados.fonte }}</p>
                 <p><strong>Tipo:</strong> {{ dados.tipo_do_trabalho }}</p>
 				<p><strong>Data do Cadastro:</strong> {{ dados.data_cadastro }}</p>
-                <p><strong>Validação da Notícia:</strong> {{ dados.data_validacao_noticia }}</p>
+                <p><strong>Local:</strong> {{ dados.local }}</p>
+                <p><strong>Formato:</strong> {{ dados.formato }}</p>
+                <p><strong>Data do Evento :</strong> {{ dados.data_evento }}</p>
 				<p><strong>Link:</strong><a href="{{ dados.urlLink }}">{{ dados.urlLink }}</a></p>
 
                 <p><strong>Arquivo PDF:</strong> <a href="{{ dados.arquivo_pdf.url }}" target="_blank">Baixar</a></p>
