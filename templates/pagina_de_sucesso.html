@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Página de Sucesso</title>
+    <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <style type="text/css">
+        body {
+            background-color: #E08E79;
+        }
+
+            button {
+            padding: 10px 20px;
+            background-color: #e04e2a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #EC7253;
+        }
+        a{
+            text-decoration: none;
+            color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Artigo submetido com sucesso!</h1>
+    <p>O seu artigo foi enviado para avaliação. Aguarde a aprovação do administrador.</p>
+
+    <button type="submit"><a href="{% url 'perfil' %}">Perfil</a></button> 
+
+    <button type="submit"><a href="{% url 'meus_artigos' %}">Meus Artigos</a></button> 
+
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render ,get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login # as duas funções responsáveis pela autenticação: 1-authenticate - verifica o login e senha; 2- login - realiza a autenticação no sistema.
 from django.contrib.auth import logout #função responsável pelo logout
 from django.contrib.auth.decorators import permission_required #Definindo que o acesso à View só será feito por usuários que tiverem a permissão permissao_adm_1 definida:
@@ -12,6 +13,7 @@ from django.contrib import messages
 from .models import Categorias, Usuario, Endereco, Noticias, Cadastros, Eventos
 from .forms import UsuarioForm
 from .forms import EnderecoForm
+<<<<<<< HEAD
 from .forms import NoticiasForm , CadastrosForm
 from .forms import EventosForm
 
@@ -26,24 +28,105 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
 #from .forms import UsuarioForm
+=======
+from django.shortcuts import get_list_or_404
+from .forms import AddPermissionForm
+from django.shortcuts import get_object_or_404
+from .models import Anexos
+from .forms import AnexosForm
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, get_object_or_404
+from .forms import AdicionarImagemForm
+from datetime import datetime
+from django.utils import timezone
+from .forms import SobreOGrupoForm
+from .models import SobreOGrupo
+from .models import Pesquisadores
+from .forms import PesquisadoresForm
+from django.shortcuts import render
+from .models import Anexos
+>>>>>>> 1d4dddcf262aa6155d237ff2e50531c449585ac5
 
 
+# def home (resquest):
+#     return render(resquest, "index.html")
 
+def home(request):
+    grupos = SobreOGrupo.objects.all()
+    return render(request, 'index.html', {'grupos': grupos})
+
+
+def pagina_de_sucesso (resquest):
+    return render(resquest, "pagina_de_sucesso.html")
+                  
 def detalhe_noticia (resquest):
     return render(resquest, "detalhe_noticia.html")
 
 def noticias (resquest):
     return render(resquest, "noticias.html")
 
-def pesquisadores (resquest):
-    return render(resquest, "pesquisadores.html")
+def pesquisadores(request):
+    pesquisadores = Pesquisadores.objects.all()
+    return render(request, 'pesquisadores.html', {'pesquisadores': pesquisadores})
+
+# def pesquisadores(request, pesquisador_id):
+#     pesquisador = Pesquisadores.objects.get(id=pesquisador_id)
+#     return render(request, 'pesquisadores.html', {'pesquisador': pesquisador})
+
 
 @login_required
 def perfil(request):
-    return render(request, 'perfil.html')
+     # Recupere o usuário logado
+    user = request.user
 
-def home (resquest):
-    return render(resquest, "index.html")
+    # Verifique se o usuário já tem uma imagem de perfil cadastrada
+    tem_imagem_perfil = bool(user.imagem)
+
+    return render(request, 'perfil.html', {'user': user, 'tem_imagem_perfil': tem_imagem_perfil})
+
+
+
+
+
+@login_required
+def adicionar_imagem_perfil(request):
+    if request.method == 'POST':
+        form = AdicionarImagemForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('perfil')  # Redirecionar para a página de perfil após o upload
+    else:
+        form = AdicionarImagemForm()
+    return render(request, 'adicionar_imagem.html', {'form': form})
+
+@login_required
+def excluir_imagem_perfil(request):
+    # Recupere o usuário logado
+    user = request.user
+    # Defina o campo "imagem" do usuário como None (ou limpe o campo)
+    user.imagem = None
+    user.save()
+    return redirect('perfil')  # Redirecionar para a página de perfil após a exclusão
+
+@login_required
+def editar_imagem_perfil(request):
+    if request.method == 'POST':
+        form = AdicionarImagemForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('perfil')  # Redirecionar para a página de perfil após a edição
+    else:
+        form = AdicionarImagemForm(instance=request.user)
+    return render(request, 'editar_imagem.html', {'form': form})
+
+
+
+
+
+
+
+
+
 
 
 def cadastro_noticias1 (resquest):
@@ -68,11 +151,11 @@ def autenticacao(request):
        else:
         return redirect('login') 
     else:
-        return render(request, 'registration\login.html') 
+        return render(request, 'registration/login.html')
     
 
 
-
+@login_required
 def pagina_usuarios(request, categoria_url): 
     #Listar usuarios do BD
     if categoria_url == 'todos':
@@ -107,7 +190,7 @@ def pagina_usuarios(request, categoria_url):
 """
 def cadastro_manual(request):
     permission1 = Permission.objects.get(codename='Administrador') #Adicionando permissão ao administrador
-    user = Usuario.objects.get(email='josevilani02@email.com')
+    user = Usuario.objects.get(email='josechacon@gmail.com')
     user.user_permissions.add(permission1)
     user.save()
     return redirect('home')   
@@ -260,6 +343,7 @@ def remover_endereco(request, id):
 
 
 
+<<<<<<< HEAD
 #views referente as rotas da noticias
 
 def cadastro_noticias(request):
@@ -411,10 +495,165 @@ def cadastro_evento(request):
         form2 = EventosForm()
 
     return render(request, 'cadastro_evento.html', {'form1': form1, 'form2': form2})
+=======
+# def teste(request, idUsuario):
+#     usuario = Usuario.objects.get(id=idUsuario)
+#     grupoAdmin = Group.objects.get(name='Administradores') 
+#     grupoAdmin.user_set.add(usuario)
+#     return redirect('add-admin')
+
+
+
+#lista de usuarios
+
+def user_list(request):
+    usuario = Usuario.objects.all()
+    context = {'usuario': usuario}
+    return render(request, 'user_list.html', context)
 
 
 
 
+def sucesso_add_permission(request):
+    return render(request, 'sucesso_add_permission.html')
+
+
+
+#Atribuindo permissões a usuarios
+
+@login_required
+def add_permission(request, user_id):
+    usuario = get_object_or_404(Usuario, id=user_id)
+
+    if request.method == 'POST':
+        form = AddPermissionForm(request.POST)
+        if form.is_valid():
+            permissions = form.cleaned_data['permissions']
+            usuario.user_permissions.set(permissions)
+            return redirect('sucesso_add_permission')
+    else:
+        form = AddPermissionForm()
+
+    context = {
+        'form': form,
+        'user': usuario
+    }
+    return render(request, 'add_permission.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@login_required
+def submeter_artigo(request):
+    if request.method == 'POST':
+        form = AnexosForm(request.POST, request.FILES)
+        if form.is_valid():
+            artigo = form.save(commit=False)
+            artigo.usuario = request.user
+            artigo.save()
+            artigo.status = 'pendente'
+            return redirect('pagina_de_sucesso')
+    else:
+        form = AnexosForm()
+    return render(request, 'submeter_artigo.html', {'form': form})
+
+
+@login_required
+def listar_artigos(request):
+    if request.user.is_superuser:
+        artigos_pendentes = Anexos.objects.filter(status='pendente')
+        artigos_deferidos = Anexos.objects.exclude(status='pendente').select_related('deferido_por')
+    else:
+        artigos_pendentes = Anexos.objects.filter(status='pendente', deferido_por=None)
+        artigos_deferidos = Anexos.objects.filter(deferido_por__isnull=False).select_related('deferido_por')
+
+    # Deixa a primeira letra do status em maiúscula para todos os artigos
+    for artigo in artigos_pendentes:
+        artigo.status = artigo.status.capitalize()
+
+    for artigo in artigos_deferidos:
+        artigo.status = artigo.status.capitalize()
+
+    return render(request, 'listar_artigos.html', {'artigos_pendentes': artigos_pendentes, 'artigos_deferidos': artigos_deferidos})
+
+
+
+@login_required
+def detalhes_artigo(request, artigo_id):
+    artigo = get_object_or_404(Anexos, id=artigo_id)
+    return render(request, 'detalhes_artigo.html', {'artigo': artigo})
+
+
+
+@login_required
+def meus_artigos(request):
+    artigos = Anexos.objects.filter(usuario=request.user)
+    for artigo in artigos:
+        artigo.disable_exclusao = artigo.status == "deferido"
+        artigo.status = artigo.status.capitalize()
+    contexto = {'artigos': artigos}
+    return render(request, 'meus_artigos.html', contexto)
+
+
+@login_required
+def excluir_artigo(request, artigo_id):
+    artigo = get_object_or_404(Anexos, id=artigo_id, usuario=request.user)
+    artigo.delete()
+    return redirect('meus_artigos')
+
+
+
+from django.shortcuts import redirect, get_object_or_404
+
+@login_required
+def deferir_artigo(request, artigo_id):
+    artigo = get_object_or_404(Anexos, id=artigo_id, status='pendente')
+    artigo.status = 'deferido'
+    artigo.deferido_por = request.user
+    artigo.data_deferimento = timezone.now() 
+    artigo.save()
+    return redirect('listar_artigos')
+
+@login_required
+def indeferir_artigo(request, artigo_id):
+    artigo = get_object_or_404(Anexos, id=artigo_id, status='pendente')
+    artigo.status = 'indeferido'
+    artigo.deferido_por = request.user
+    artigo.data_deferimento = timezone.now()
+    artigo.save()
+    return redirect('listar_artigos')
+
+
+#publicado automaticamente
+
+def artigos_e_projetos(request):
+    artigos_deferidos = Anexos.objects.filter(status='deferido')
+
+    # Filtrar os resultados com base no termo de pesquisa
+    query = request.GET.get('q')
+    if query:
+        artigos_deferidos = artigos_deferidos.filter(titulo__icontains=query) | artigos_deferidos.filter(descricao__icontains=query)
+
+    return render(request, 'artigos_e_projetos.html', {'artigos_deferidos': artigos_deferidos})
+>>>>>>> 1d4dddcf262aa6155d237ff2e50531c449585ac5
+
+
+
+
+<<<<<<< HEAD
 
 class DadosCompletos1:
     def __init__(self, cadastro, evento):
@@ -517,3 +756,87 @@ def detalhe_evento(request, cadastro_id):
     else:
         return render(request, 'evento_nao_encontrado.html')
 
+=======
+#SOBRE O GRUPO
+@login_required
+def cadastrar_sobre_o_grupo(request):
+    if request.method == 'POST':
+        form = SobreOGrupoForm(request.POST, request.FILES)
+        if form.is_valid():
+            grupo = form.save(commit=False)
+            grupo.usuario = request.user
+            grupo.save()
+            return redirect('listar_sobre_o_grupo')
+    else:
+        form = SobreOGrupoForm()
+    return render(request, 'cadastrar_sobre_o_grupo.html', {'form': form})
+
+
+def listar_sobre_o_grupo(request):
+    grupos = SobreOGrupo.objects.all()
+    return render(request, 'listar_sobre_o_grupo.html', {'grupos': grupos})
+
+
+@login_required
+def editar_sobre_o_grupo(request, grupo_id):
+    grupo = get_object_or_404(SobreOGrupo, id=grupo_id)
+    if request.method == 'POST':
+        form = SobreOGrupoForm(request.POST, request.FILES, instance=grupo)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_sobre_o_grupo')
+    else:
+        form = SobreOGrupoForm(instance=grupo)
+    return render(request, 'editar_sobre_o_grupo.html', {'form': form})
+
+@login_required
+def excluir_sobre_o_grupo(request, grupo_id):
+    grupo = get_object_or_404(SobreOGrupo, id=grupo_id)
+    grupo.delete()
+    return redirect('listar_sobre_o_grupo')
+
+
+def sobre(request):
+    grupos = SobreOGrupo.objects.all()
+    return render(request, 'sobre.html', {'grupos': grupos})
+
+
+@login_required
+def cadastrar_pesquisador(request):
+    if request.method == 'POST':
+        form = PesquisadoresForm(request.POST, request.FILES)
+        if form.is_valid():
+            pesquisador = form.save(commit=False)
+            # Defina o usuário do pesquisador com base no usuário logado
+            pesquisador.usuario = request.user
+            pesquisador.save()
+            return redirect('listar_pesquisadores')  # Redirecionar para a página de sucesso após o cadastro
+    else:
+        form = PesquisadoresForm()
+    return render(request, 'cadastrar_pesquisador.html', {'form': form})
+
+
+def listar_pesquisadores(request):
+    pesquisadores = Pesquisadores.objects.all()
+    return render(request, 'listar_pesquisadores.html', {'pesquisadores': pesquisadores})
+
+@login_required
+def editar_pesquisador(request, pesquisador_id):
+    pesquisador = get_object_or_404(Pesquisadores, pk=pesquisador_id)
+    if request.method == 'POST':
+        form = PesquisadoresForm(request.POST, request.FILES, instance=pesquisador)
+        if form.is_valid():
+            form.save()
+            # Redirecionar para a página de lista de pesquisadores após a edição
+            return redirect('listar_pesquisadores')
+    else:
+        form = PesquisadoresForm(instance=pesquisador)
+    return render(request, 'editar_pesquisador.html', {'form': form})
+
+
+@login_required
+def excluir_pesquisador(request, pesquisador_id):
+    pesquisador = get_object_or_404(Pesquisadores, id=pesquisador_id)
+    pesquisador.delete()
+    return redirect('listar_pesquisadores')
+>>>>>>> 1d4dddcf262aa6155d237ff2e50531c449585ac5
