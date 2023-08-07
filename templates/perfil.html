@@ -378,6 +378,27 @@
                   Listar Categorias
                 </a>
               </li>
+              
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'listar_noticia' %}">
+                  <svg class="bi">
+                    <use xlink:href="#file-earmark-text" />
+                  </svg>
+                  Listar Notícias
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'listar_evento' %}">
+                  <svg class="bi">
+                    <use xlink:href="#file-earmark-text" />
+                  </svg>
+                  Listar Eventos
+                </a>
+              </li>
+
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
                   href="{% url 'pagina_usuarios' 'todos' %}">
@@ -511,7 +532,7 @@
               <div class="card-body">
                 <h5 class="card-title card-heade">Consultar</h5>
                 <h1 class=" text-center">Notícias</h1>
-                <a href="{% url 'noticias' %}" class="btn" style="background: #f5f3f3;">Acessar</a>
+                <a href="{% url 'noticias_listar' %}" class="btn" style="background: #f5f3f3;">Acessar</a>
               </div>
             </div>
           </div>
@@ -521,7 +542,7 @@
               <div class="card-body">
                 <h5 class="card-title card-heade">Consultar</h5>
                 <h1 class=" text-center">Eventos</h1>
-                <a href="#" class="btn" style="background: #f5f3f3;">Acessar</a>
+                <a href="{% url 'eventos_listar' %}"class="btn" style="background: #f5f3f3;">Acessar</a>
               </div>
             </div>
           </div>

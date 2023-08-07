@@ -103,15 +103,10 @@
           <ul class="nav nav-pills">
             <li class="nav-item"><a href="{% url 'artigos_e_projetos' %}" class="nav-link text-white">Artigos</a></li>
             <li class="nav-item"><a href="{% url 'pesquisadores' %}" class="nav-link text-white">Pesquisadores</a></li>
-<<<<<<< HEAD
             <li class="nav-item"><a href="{% url 'noticias_listar' %}" class="nav-link text-white">Notícias</a></li>
             <li class="nav-item"><a href="{% url 'eventos_listar' %}" class="nav-link text-white">Eventos</a></li>
-            <li class="nav-item"><a href="#" class="nav-link text-white">Sobre</a></li>
-=======
-            <li class="nav-item"><a href="{% url 'noticias' %}" class="nav-link text-white">Notícias</a></li>
-            <li class="nav-item"><a href="#" class="nav-link text-white">Eventos</a></li>
+        
             <li class="nav-item"><a href="{% url 'sobre' %}" class="nav-link text-white">Sobre</a></li>
->>>>>>> 1d4dddcf262aa6155d237ff2e50531c449585ac5
           </ul>
     
           <div class="col-md-3 text-end">
@@ -156,6 +151,10 @@
         <div class="">
 
           <h4 class="text-center pt-5 pb-4"><b>Notícias Sobre</b></h4>
+          <!-- {% for noticia in noticias %}
+          <img src="/media/{{dados.foto}}" class="bd-placeholder-img card-img-top img-fluid" alt="Foto da Notícia">
+      
+        {% endfor %} -->
           
           <div class="row text-center align-items-center border border-dark rounded-4 mb-4 py-2 px-5 mx-5">
             <div class="d-flex flex-wrap align-items-center justify-content-center py-3 ">

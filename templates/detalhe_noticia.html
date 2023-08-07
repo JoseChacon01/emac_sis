@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Detalhes do Artigo</title>
+    <title>Detalhes da Notícia</title>
     <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -64,7 +64,7 @@
 	
 
     <div class="container">
-        <h1 class="center">Detalhe da Notícia</h1>
+        <h1 class="center">Detalhes da Notícia</h1>
         <div class="card">
             <div class="card-body">
 				<img src="/media/{{dados.foto}}" class="bd-placeholder-img img-fluid " alt="Foto da Notícia">
@@ -74,7 +74,6 @@
 				<p><strong>Fonte:</strong> {{ dados.fonte }}</p>
                 <p><strong>Tipo:</strong> {{ dados.tipo_do_trabalho }}</p>
 				<p><strong>Data do Cadastro:</strong> {{ dados.data_cadastro }}</p>
-                <p><strong>Validação da Notícia:</strong> {{ dados.data_validacao_noticia }}</p>
 				<p><strong>Link:</strong><a href="{{ dados.urlLink }}">{{ dados.urlLink }}</a></p>
 
                 <p><strong>Arquivo PDF:</strong> <a href="{{ dados.arquivo_pdf.url }}" target="_blank">Baixar</a></p>

@@ -13,7 +13,6 @@ from django.contrib import messages
 from .models import Categorias, Usuario, Endereco, Noticias, Cadastros, Eventos
 from .forms import UsuarioForm
 from .forms import EnderecoForm
-<<<<<<< HEAD
 from .forms import NoticiasForm , CadastrosForm
 from .forms import EventosForm
 
@@ -28,7 +27,6 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
 #from .forms import UsuarioForm
-=======
 from django.shortcuts import get_list_or_404
 from .forms import AddPermissionForm
 from django.shortcuts import get_object_or_404
@@ -45,7 +43,6 @@ from .models import Pesquisadores
 from .forms import PesquisadoresForm
 from django.shortcuts import render
 from .models import Anexos
->>>>>>> 1d4dddcf262aa6155d237ff2e50531c449585ac5
 
 
 # def home (resquest):
@@ -343,7 +340,6 @@ def remover_endereco(request, id):
 
 
 
-<<<<<<< HEAD
 #views referente as rotas da noticias
 
 def cadastro_noticias(request):
@@ -377,7 +373,6 @@ class DadosCompletos:
         self.descricao = cadastro.descricao
         self.data_cadastro = cadastro.data_cadastro
         self.tipo_do_trabalho = cadastro.tipo_do_trabalho   
-        self.data_validacao_noticia = noticia.data_validacao_noticia
         self.fonte = noticia.fonte
         self.publico_alvo = noticia.publico_alvo
         self.foto = noticia.foto
@@ -495,7 +490,6 @@ def cadastro_evento(request):
         form2 = EventosForm()
 
     return render(request, 'cadastro_evento.html', {'form1': form1, 'form2': form2})
-=======
 # def teste(request, idUsuario):
 #     usuario = Usuario.objects.get(id=idUsuario)
 #     grupoAdmin = Group.objects.get(name='Administradores') 
@@ -648,12 +642,10 @@ def artigos_e_projetos(request):
         artigos_deferidos = artigos_deferidos.filter(titulo__icontains=query) | artigos_deferidos.filter(descricao__icontains=query)
 
     return render(request, 'artigos_e_projetos.html', {'artigos_deferidos': artigos_deferidos})
->>>>>>> 1d4dddcf262aa6155d237ff2e50531c449585ac5
 
 
 
 
-<<<<<<< HEAD
 
 class DadosCompletos1:
     def __init__(self, cadastro, evento):
@@ -756,7 +748,6 @@ def detalhe_evento(request, cadastro_id):
     else:
         return render(request, 'evento_nao_encontrado.html')
 
-=======
 #SOBRE O GRUPO
 @login_required
 def cadastrar_sobre_o_grupo(request):
@@ -839,4 +830,8 @@ def excluir_pesquisador(request, pesquisador_id):
     pesquisador = get_object_or_404(Pesquisadores, id=pesquisador_id)
     pesquisador.delete()
     return redirect('listar_pesquisadores')
->>>>>>> 1d4dddcf262aa6155d237ff2e50531c449585ac5
+
+
+# def ultimas_noticias(request):
+#     ultimas_3_noticias = Noticias.objects.order_by('data_cadastro')[:3]
+#     return render(request, 'index.html', {'noticias': ultimas_3_noticias})

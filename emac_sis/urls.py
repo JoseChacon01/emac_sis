@@ -16,24 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-<<<<<<< HEAD
-from core.views import home, perfil, autenticacao, desconectar, cadastro_manual, registro, pagina_usuarios, dados, pesquisadores 
-from core.views import listar_categoria, cadastrar_categoria, editar_categoria, remover_categoria
-from core.views import listar_endereco, cadastrar_endereco, editar_endereco, remover_endereco
-from core.views import noticias, detalhe_noticia
-#import referente a noticias 
-from core.views import cadastro_noticias, noticias_listar, noticia_editar, noticia_remover,listar_noticia
-# , cadastro_noticiasprima
 
-from core.views import cadastro_evento, eventos_listar, listar_evento, evento_editar, evento_remover,detalhe_evento
-
-#import referente ao cadastro de imagem
 from django.conf import settings
 from django.conf.urls.static import static
 
     
 
-=======
 from core.views import *
 from core.views import add_permission
 
@@ -41,7 +29,6 @@ from django.views.static import serve
 from django.conf import settings
 
 from django.contrib.auth import views as auth_views
->>>>>>> 1d4dddcf262aa6155d237ff2e50531c449585ac5
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -70,6 +57,9 @@ urlpatterns = [
     path('evento_editar/<int:cadastro_id>/', evento_editar, name='evento_editar'),
     path('evento_remover/<int:cadastro_id>/', evento_remover, name='evento_remover'),
     path('detalhe_evento/<int:cadastro_id>/', detalhe_evento, name='detalhe_evento'),
+
+
+    # path('ultimas_noticias/', ultimas_noticias, name='ultimas_noticias'),
 
 
     path('login/', autenticacao, name='login'), 
@@ -131,7 +121,7 @@ urlpatterns = [
 
 
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
     path('submeter-artigo/', submeter_artigo, name='submeter_artigo'),
     path('listar-artigos/', listar_artigos, name='listar_artigos'),
@@ -152,4 +142,4 @@ urlpatterns = [
 
 
     path('artigos_e_projetos/', artigos_e_projetos, name='artigos_e_projetos'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

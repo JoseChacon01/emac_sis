@@ -31,15 +31,12 @@ class UsuarioForm(UserCreationForm):
         model = Usuario
         fields = ['username', 'password1', 'password2', 'email', 'nome', 'telefone', 'cpf', 'categoria']          
 
-<<<<<<< HEAD
 
 
-=======
 class AdicionarImagemForm(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ['imagem']
->>>>>>> 1d4dddcf262aa6155d237ff2e50531c449585ac5
 
 class EnderecoForm(ModelForm):
     class Meta:
@@ -47,18 +44,17 @@ class EnderecoForm(ModelForm):
         fields = ['pais_nac', 'cep', 'estado_nac', 'cidade_nac', 'bairro_nac', 'endereco', 'numero', 'complemento']
 
 
-<<<<<<< HEAD
 
 
 class CadastrosForm(ModelForm):
     class Meta:
         model = Cadastros
-        fields = ['data_cadastro', 'titulo', 'descricao', 'tipo_do_trabalho'] 
+        fields = ['titulo', 'descricao', 'tipo_do_trabalho'] 
 
 class NoticiasForm(ModelForm):
     class Meta:
         model = Noticias
-        fields = ['fonte', 'publico_alvo', 'data_validacao_noticia','foto','urlLink', 'arquivo_pdf'] 
+        fields = ['fonte', 'publico_alvo', 'foto','urlLink', 'arquivo_pdf'] 
 
 class EventosForm(ModelForm):
     class Meta:
@@ -66,7 +62,6 @@ class EventosForm(ModelForm):
         fields = ['formato', 'local', 'data_evento','foto','urlLink', 'arquivo_pdf'] 
 
 
-=======
 class AddPermissionForm(forms.Form):
     permissions = forms.ModelMultipleChoiceField(
         queryset=Permission.objects.all(),
@@ -98,4 +93,3 @@ class PesquisadoresForm(forms.ModelForm):
     class Meta:
         model = Pesquisadores
         fields = ['nome', 'urlcurriculo', 'biografia', 'imagem_pesquisador']
->>>>>>> 1d4dddcf262aa6155d237ff2e50531c449585ac5
