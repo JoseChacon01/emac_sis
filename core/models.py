@@ -108,8 +108,8 @@ class Anexos(models.Model):
     )
 
     data_cadastro = models.DateField('Data_Cadastro', default=date.today)
-    titulo = models.CharField('Título', max_length=50)
-    descricao = models.CharField('Descrição', max_length=600)
+    titulo = models.CharField('Título', max_length=200)
+    descricao = models.CharField('Descrição', max_length=900)
     nome_periodico = models.CharField('Nome do Periódico', max_length=50)
     arquivo_pdf = models.FileField(upload_to='pdfs/', default='default.pdf')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
