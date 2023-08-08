@@ -16,6 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+    
+
 from core.views import *
 from core.views import add_permission
 
@@ -36,8 +42,24 @@ urlpatterns = [
     path('pesquisadores/', pesquisadores, name='pesquisadores'),
 
 
-    path('noticias/', noticias, name='noticias'),
-    path('detalhe_noticia/', detalhe_noticia, name='detalhe_noticia'),
+    #roda do cruds de noticias 
+    path('cadastro_noticias/', cadastro_noticias, name='cadastro_noticias'),
+    path('listar_noticia/',listar_noticia, name='listar_noticia'),
+    path('noticias/', noticias_listar, name='noticias_listar'),
+    path('detalhe_noticia/<int:cadastro_id>/', detalhe_noticia, name='detalhe_noticia'),
+    path('noticia_editar/<int:cadastro_id>/', noticia_editar, name='noticia_editar'),
+    path('noticia_remover/<int:cadastro_id>/', noticia_remover, name='noticia_remover'),
+
+    #roda do cruds de eventos 
+    path('cadastro_evento/', cadastro_evento, name='cadastro_evento'),
+    path('eventos/', eventos_listar, name='eventos_listar'),
+    path('listar_evento/',listar_evento, name='listar_evento'),
+    path('evento_editar/<int:cadastro_id>/', evento_editar, name='evento_editar'),
+    path('evento_remover/<int:cadastro_id>/', evento_remover, name='evento_remover'),
+    path('detalhe_evento/<int:cadastro_id>/', detalhe_evento, name='detalhe_evento'),
+
+
+    # path('ultimas_noticias/', ultimas_noticias, name='ultimas_noticias'),
 
 
     path('login/', autenticacao, name='login'), 
@@ -57,6 +79,7 @@ urlpatterns = [
     path('endereco_remover/<int:id>/', remover_endereco, name='remover_endereco'),
 
 
+#    path('cadastro_noticiasprima/', cadastro_noticiasprima, name='cadastro_noticiasprima'),
     #Add the urls patterns :
     path('password_reset/',auth_views.PasswordResetView.as_view(),name='password_reset'),
  
@@ -99,6 +122,7 @@ urlpatterns = [
 
 
 
+
     path('submeter-artigo/', submeter_artigo, name='submeter_artigo'),
     path('listar-artigos/', listar_artigos, name='listar_artigos'),
 
@@ -118,4 +142,4 @@ urlpatterns = [
 
 
     path('artigos_e_projetos/', artigos_e_projetos, name='artigos_e_projetos'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,46 +1,93 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>EMAC - Detalhes</title>
-    <link rel="shortcut icon" href="../static/img/logo2.png" type="image/x-icon">
-	<style type="text/css">
-.container {
-    padding: 200px;
-    background-color: #F1D4AF;
-   
-   
-}
+    <title>Detalhes da Notícia</title>
+    <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #E08E79;
+        }
 
-.div1{
-    padding: 50px;
-    background-color: #E08E79;
-    border-radius: 10px;
-    border: 2px solid #000;
-}
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
 
-	</style>
+        p {
+            margin-bottom: 10px;
+        }
 
+        .btn {
+            margin-right: 10px;
+            color:azure;
+        }
+        button {
+            height: 45px;
+            width: 240px;
+            background-color: #e04e2a;
+            color:azure;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .linkvolt {
+            color: aliceblue;
+            text-decoration: none;
+        }
+        .linkvolt:hover{
+            color: aliceblue;
+            text-decoration: none;
+        }
+        button:hover {
+            background-color: #EC7253;
+        }
+
+		
+		.center{
+			text-align: center;
+			font-style:italic;
+		}
+
+    </style>
 </head>
-
 <body>
 
-	<div class="container">
-		<p>Noticias</p>
+	
+	
+	
 
-			<div class="div1">
-			 <p>
-				Fundada em 2011 por repórteres mulheres,
-				 a Pública é a primeira agência de jornalismo investigativo sem fins lucrativos do Brasil. 
-				 Todas as nossas reportagens são feitas com base na rigorosa apuração dos fatos
-				  e têm como princípio a defesa intransigente dos direitos humanos.
-				Nossas reportagens de fôlego pautadas pelo interesse público foram republicadas em 2022 por mais de 700 veículos de comunicação brasileiros e estrangeiros.
-				 Além de distribuir conteúdo para grandes portais no país, como UOL, Folha de S. Paulo, iG, Metrópoles, entre outros, em 2022, tivemos 217 republicações em 79 sites de 18 países e em 10 idiomas diferentes. Todas as reportagens da Pública podem ser republicadas gratuitamente sob a licença Creative Commons.
-				Investigamos a administração pública, incluindo todos os níveis de governo e as casas legislativas; os impactos sociais e ambientais de empresas, suas práticas de corrupção e de antitransparência; o Poder Judiciário, sua eficácia, transparência e equidade; e a violência contra populações vulneráveis na cidade e no campo.</p>
-			</div>
-			
-	</div>
+    <div class="container">
+        <h1 class="center">Detalhes da Notícia</h1>
+        <div class="card">
+            <div class="card-body">
+				<img src="/media/{{dados.foto}}" class="bd-placeholder-img img-fluid " alt="Foto da Notícia">
+                <h5><strong>{{ dados.titulo }}</strong></h5>
+				<p><strong>Público Alvo:</strong> {{ dados.publico_alvo }}</p>
+				<p><strong>Descrição:</strong> {{ dados.descricao }}</p>
+				<p><strong>Fonte:</strong> {{ dados.fonte }}</p>
+                <p><strong>Tipo:</strong> {{ dados.tipo_do_trabalho }}</p>
+				<p><strong>Data do Cadastro:</strong> {{ dados.data_cadastro }}</p>
+				<p><strong>Link:</strong><a href="{{ dados.urlLink }}">{{ dados.urlLink }}</a></p>
+
+                <p><strong>Arquivo PDF:</strong> <a href="{{ dados.arquivo_pdf.url }}" target="_blank">Baixar</a></p>
+                
+                
+              
+            </div>
+        </div>
+
+
+		
+
+<br>
+       
+       
 </body>
 </html>

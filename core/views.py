@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render ,get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
@@ -10,9 +10,23 @@ from django.contrib.auth.forms import UserCreationForm #Registro: UserCreationFo
 from .forms import  CategoriaForm
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Categorias, Usuario, Endereco
+from .models import Categorias, Usuario, Endereco, Noticias, Cadastros, Eventos
 from .forms import UsuarioForm
 from .forms import EnderecoForm
+from .forms import NoticiasForm , CadastrosForm
+from .forms import EventosForm
+
+
+
+
+
+
+
+
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+
+#from .forms import UsuarioForm
 from django.shortcuts import get_list_or_404
 from .forms import AddPermissionForm
 from django.shortcuts import get_object_or_404
@@ -110,6 +124,10 @@ def editar_imagem_perfil(request):
 
 
 
+
+
+def cadastro_noticias1 (resquest):
+    return render(resquest, "cadastro_noticias1.html")
 
 
 
@@ -322,6 +340,156 @@ def remover_endereco(request, id):
 
 
 
+#views referente as rotas da noticias
+
+def cadastro_noticias(request):
+    if request.method == 'POST':
+        form1 = CadastrosForm(request.POST)
+        form2 = NoticiasForm(request.POST, request.FILES)
+
+        if form1.is_valid() and form2.is_valid():
+            cadastro = form1.save(commit=False)  # Não salva ainda no banco de dados
+            cadastro.usuario = request.user  # Associar o cadastro ao usuário logado
+            cadastro.save()  # Agora salva no banco de dados
+
+            noticias = form2.save(commit=False)  # Não salva ainda no banco de dados
+            noticias.cadastro = cadastro  # Vinculando o cadastro ao objeto noticias
+            noticias.save()  # Salvando agora no banco de dados com a chave estrangeira preenchida
+
+            # Redirecionar para uma página de sucesso ou qualquer outra página desejada
+            return redirect('listar_noticia')
+
+    else:
+        form1 = CadastrosForm()
+        form2 = NoticiasForm()
+
+    return render(request, 'cadastro_noticias.html', {'form1': form1, 'form2': form2})
+
+
+class DadosCompletos:
+    def __init__(self, cadastro, noticia):
+        self.cadastro_id = noticia.cadastro_id
+        self.titulo = cadastro.titulo
+        self.descricao = cadastro.descricao
+        self.data_cadastro = cadastro.data_cadastro
+        self.tipo_do_trabalho = cadastro.tipo_do_trabalho   
+        self.fonte = noticia.fonte
+        self.publico_alvo = noticia.publico_alvo
+        self.foto = noticia.foto
+        self.urlLink = noticia.urlLink
+        self.arquivo_pdf = noticia.arquivo_pdf
+
+
+        
+        # Adicione mais campos conforme necessário
+
+
+def noticias_listar(request):
+    cadastros = Cadastros.objects.all()
+    
+    dados_completos = []
+
+    for cadastro in cadastros:
+        try:
+            noticia = Noticias.objects.get(cadastro=cadastro)
+            dados = DadosCompletos(cadastro, noticia)
+            dados_completos.append(dados)
+        except Noticias.DoesNotExist:
+            pass
+
+    return render(request, 'noticias.html', {'dados_completos': dados_completos})
+
+
+def listar_noticia(request):
+    cadastros = Cadastros.objects.all()
+    
+    dados_completos = []
+
+    for cadastro in cadastros:
+        try:
+            noticia = Noticias.objects.get(cadastro=cadastro)
+            dados = DadosCompletos(cadastro, noticia)
+            dados_completos.append(dados)
+        except Noticias.DoesNotExist:
+            pass
+
+    return render(request, 'listar_noticia.html', {'dados_completos': dados_completos})
+
+
+def noticia_remover(request, cadastro_id): 
+    cadastro = get_object_or_404(Cadastros, pk=cadastro_id)
+    noticias = Noticias.objects.filter(cadastro=cadastro)
+
+    # Exclui todas as notícias associadas ao cadastro
+    for noticia in noticias:
+        noticia.delete()
+
+    # Exclui o próprio cadastro
+    cadastro.delete()
+    return redirect('listar_noticia')
+
+def noticia_editar(request, cadastro_id):
+    cadastro = Cadastros.objects.get(pk=cadastro_id)
+
+    try:
+        noticia = Noticias.objects.get(cadastro=cadastro)
+    except Noticias.DoesNotExist:
+        noticia = None
+
+    form1 = CadastrosForm(instance=cadastro)
+    form2 = NoticiasForm(instance=noticia)
+
+    if request.method == 'POST':
+        form1 = CadastrosForm(request.POST, instance=cadastro)
+        form2 = NoticiasForm(request.POST, request.FILES, instance=noticia)
+
+        if form1.is_valid() and form2.is_valid():
+            form1.save()
+            form2.save()    
+            return redirect('listar_noticia')
+
+    return render(request, 'cadastro_noticias.html', {'form1': form1, 'form2': form2})
+
+
+
+def detalhe_noticia(request, cadastro_id):
+    cadastro = get_object_or_404(Cadastros, pk=cadastro_id)
+    try:
+        noticia = Noticias.objects.get(cadastro=cadastro)
+    except Noticias.DoesNotExist:
+        noticia = None
+
+    if noticia:
+        dados = DadosCompletos(cadastro, noticia)
+        return render(request, 'detalhe_noticia.html', {'dados': dados})
+    else:
+        return render(request, 'noticia_nao_encontrada.html')
+
+
+#views referente as rotas de eventos
+
+def cadastro_evento(request):
+    if request.method == 'POST':
+        form1 = CadastrosForm(request.POST)
+        form2 = EventosForm(request.POST, request.FILES)
+
+        if form1.is_valid() and form2.is_valid():
+            cadastro = form1.save(commit=False)  # Não salva ainda no banco de dados
+            cadastro.usuario = request.user  # Associar o cadastro ao usuário logado
+            cadastro.save()  # Agora salva no banco de dados
+
+            eventos = form2.save(commit=False)  # Não salva ainda no banco de dados
+            eventos.cadastro = cadastro  # Vinculando o cadastro ao objeto noticias
+            eventos.save()  # Salvando agora no banco de dados com a chave estrangeira preenchida
+
+            # Redirecionar para uma página de sucesso ou qualquer outra página desejada
+            return redirect('listar_evento')
+
+    else:
+        form1 = CadastrosForm()
+        form2 = EventosForm()
+
+    return render(request, 'cadastro_evento.html', {'form1': form1, 'form2': form2})
 # def teste(request, idUsuario):
 #     usuario = Usuario.objects.get(id=idUsuario)
 #     grupoAdmin = Group.objects.get(name='Administradores') 
@@ -478,6 +646,108 @@ def artigos_e_projetos(request):
 
 
 
+
+class DadosCompletos1:
+    def __init__(self, cadastro, evento):
+        self.cadastro_id = evento.cadastro_id
+        self.titulo = cadastro.titulo
+        self.descricao = cadastro.descricao
+        self.data_cadastro = cadastro.data_cadastro
+        self.tipo_do_trabalho = cadastro.tipo_do_trabalho   
+        self.formato = evento.formato
+        self.local = evento.local
+        self.data_evento = evento.data_evento
+        self.foto = evento.foto
+        self.urlLink = evento.urlLink
+        self.arquivo_pdf = evento.arquivo_pdf
+
+
+        
+        # Adicione mais campos conforme necessário
+
+
+def eventos_listar(request):
+    cadastros = Cadastros.objects.all()
+    
+    dados_completos = []
+
+    for cadastro in cadastros:
+        try:
+            noticia = Eventos.objects.get(cadastro=cadastro)
+            dados = DadosCompletos1(cadastro, noticia)
+            dados_completos.append(dados)
+        except Eventos.DoesNotExist:
+            pass
+
+    return render(request, 'eventos.html', {'dados_completos': dados_completos})
+
+
+def listar_evento(request):
+    cadastros = Cadastros.objects.all()
+    
+    dados_completos1 = []
+
+    for cadastro in cadastros:
+        try:
+            evento = Eventos.objects.get(cadastro=cadastro)
+            dados = DadosCompletos1(cadastro, evento)
+            dados_completos1.append(dados)
+        except Eventos.DoesNotExist:
+            pass
+
+    return render(request, 'listar_evento.html', {'dados_completos': dados_completos1})
+
+
+
+def evento_remover(request, cadastro_id): 
+    cadastro = get_object_or_404(Cadastros, pk=cadastro_id)
+    eventos = Eventos.objects.filter(cadastro=cadastro)
+
+    # Exclui todas as notícias associadas ao cadastro
+    for evento in eventos:
+        evento.delete()
+
+    # Exclui o próprio cadastro
+    cadastro.delete()
+    return redirect('listar_evento')
+
+def evento_editar(request, cadastro_id):
+    cadastro = Cadastros.objects.get(pk=cadastro_id)
+
+    try:
+        evento = Eventos.objects.get(cadastro=cadastro)
+    except Eventos.DoesNotExist:
+        evento = None
+
+    form1 = CadastrosForm(instance=cadastro)
+    form2 = EventosForm(instance=evento)
+
+    if request.method == 'POST':
+        form1 = CadastrosForm(request.POST, instance=cadastro)
+        form2 = EventosForm(request.POST, request.FILES, instance=evento)
+
+        if form1.is_valid() and form2.is_valid():
+            form1.save()
+            form2.save()    
+            return redirect('listar_evento')
+
+    return render(request, 'cadastro_evento.html', {'form1': form1, 'form2': form2})
+
+
+
+def detalhe_evento(request, cadastro_id):
+    cadastro = get_object_or_404(Cadastros, pk=cadastro_id)
+    try:
+        evento = Eventos.objects.get(cadastro=cadastro)
+    except Eventos.DoesNotExist:
+        evento = None
+
+    if evento:
+        dados = DadosCompletos1(cadastro, evento)
+        return render(request, 'detalhe_evento.html', {'dados': dados})
+    else:
+        return render(request, 'evento_nao_encontrado.html')
+
 #SOBRE O GRUPO
 @login_required
 def cadastrar_sobre_o_grupo(request):
@@ -560,3 +830,8 @@ def excluir_pesquisador(request, pesquisador_id):
     pesquisador = get_object_or_404(Pesquisadores, id=pesquisador_id)
     pesquisador.delete()
     return redirect('listar_pesquisadores')
+
+
+# def ultimas_noticias(request):
+#     ultimas_3_noticias = Noticias.objects.order_by('data_cadastro')[:3]
+#     return render(request, 'index.html', {'noticias': ultimas_3_noticias})

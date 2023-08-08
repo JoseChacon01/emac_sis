@@ -2,6 +2,11 @@ from dataclasses import fields
 from .models import Usuario
 from .models import Categorias
 from .models import Endereco
+from .models import Noticias
+from .models import Cadastros
+from .models import Eventos
+
+
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -10,6 +15,8 @@ from .models import Anexos
 from django import forms
 from .models import SobreOGrupo
 from .models import Pesquisadores
+
+
 
 
 
@@ -24,6 +31,8 @@ class UsuarioForm(UserCreationForm):
         model = Usuario
         fields = ['username', 'password1', 'password2', 'email', 'nome', 'telefone', 'cpf', 'categoria']          
 
+
+
 class AdicionarImagemForm(forms.ModelForm):
     class Meta:
         model = Usuario
@@ -33,6 +42,24 @@ class EnderecoForm(ModelForm):
     class Meta:
         model = Endereco
         fields = ['pais_nac', 'cep', 'estado_nac', 'cidade_nac', 'bairro_nac', 'endereco', 'numero', 'complemento']
+
+
+
+
+class CadastrosForm(ModelForm):
+    class Meta:
+        model = Cadastros
+        fields = ['titulo', 'descricao', 'tipo_do_trabalho'] 
+
+class NoticiasForm(ModelForm):
+    class Meta:
+        model = Noticias
+        fields = ['fonte', 'publico_alvo', 'foto','urlLink', 'arquivo_pdf'] 
+
+class EventosForm(ModelForm):
+    class Meta:
+        model = Eventos
+        fields = ['formato', 'local', 'data_evento','foto','urlLink', 'arquivo_pdf'] 
 
 
 class AddPermissionForm(forms.Form):

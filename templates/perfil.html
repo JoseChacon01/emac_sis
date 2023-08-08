@@ -331,9 +331,7 @@
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
                   href="{% url 'listar_endereco' %}">
-                  <svg class="bi">
-                    <use xlink:href="#file-earmark-text" />
-                  </svg>
+                  <i class="bi bi-house-gear"></i>
                   Enderços
                 </a>
               </li>
@@ -342,14 +340,14 @@
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
                   href="{% url 'submeter_artigo' %}">
-                  <i class="bi bi-file-earmark-text"></i>
+                  <i class="bi bi-journal-plus"></i>
                   Submeter Artigo
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
                   href="{% url 'meus_artigos' %}">
-                  <i class="bi bi-file-earmark-text"></i>
+                  <i class="bi bi-filetype-doc"></i>
                   Meus Artigos
                 </a>
               </li>
@@ -375,9 +373,28 @@
                   <svg class="bi">
                     <use xlink:href="#file-earmark-text" />
                   </svg>
-                  Listar Categorias
+                  Categorias
                 </a>
               </li>
+              
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'listar_noticia' %}">
+                  <i class="bi bi-megaphone"></i>
+                  Notícias
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
+                  href="{% url 'listar_evento' %}">
+                  <svg class="bi">
+                    <use xlink:href="#file-earmark-text" />
+                  </svg>
+                  Eventos
+                </a>
+              </li>
+
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
                   href="{% url 'pagina_usuarios' 'todos' %}">
@@ -410,7 +427,7 @@
                       <use xlink:href="#people" />
                     </svg>
                   </svg>
-                  Cadastrar Pesquisadores
+                  Pesquisadores
                 </a>
               </li>
 
@@ -418,18 +435,14 @@
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
                   href="{% url 'listar_artigos' %}">
-                  <svg class="bi">
-                    <use xlink:href="#file-earmark-text" />
-                  </svg>
+                  <i class="bi bi-journals"></i>
                   Listar Artigos
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2" style="color: #fafafa;"
                   href="{% url 'pagina_usuarios' 'todos' %}">
-                  <svg class="bi">
-                    <use xlink:href="#file-earmark-text" />
-                  </svg>
+                  <i class="bi bi-person-add"></i>
                   Cadastrar novo Administrador
                 </a>
               </li>
@@ -511,7 +524,7 @@
               <div class="card-body">
                 <h5 class="card-title card-heade">Consultar</h5>
                 <h2 class=" text-center">Notícias</h2>
-                <a href="{% url 'noticias' %}" class="btn" style="background: #f5f3f3;">Acessar</a>
+                <a href="{% url 'noticias_listar' %}" class="btn" style="background: #f5f3f3;">Acessar</a>
               </div>
             </div>
           </div>
@@ -520,8 +533,8 @@
             <div class="card text-center h-100 bg-dange text-white" style="background: #DD7960;">
               <div class="card-body">
                 <h5 class="card-title card-heade">Consultar</h5>
-                <h2 class=" text-center">Eventos</h2>
-                <a href="#" class="btn" style="background: #f5f3f3;">Acessar</a>
+                <h1 class=" text-center">Eventos</h1>
+                <a href="{% url 'eventos_listar' %}"class="btn" style="background: #f5f3f3;">Acessar</a>
               </div>
             </div>
           </div>
