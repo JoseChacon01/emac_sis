@@ -398,10 +398,10 @@
 
 
     <div class="container">
-      <div class="row">
+      <div class="row justify-content-center">
         {% for dados in dados_completos %}
-        <div class="col-md-6">
-          <div class="card shadow-sm mb-4">
+        <div class="col-md-4">
+          <div class="card shadow-sm mb-4" style="max-height: 600px;"> <!-- Definindo uma altura máxima -->
             <img src="/media/{{dados.foto}}" class="bd-placeholder-img card-img-top img-fluid" alt="Foto da Notícia">
             <div id="div" class="card-body">
               <h5><strong>{{ dados.titulo }}</strong></h5>

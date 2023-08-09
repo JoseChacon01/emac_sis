@@ -45,7 +45,7 @@ class Pesquisadores(models.Model):
      urlcurriculo = models.URLField('UrlCurriculo', max_length=200, default='')
      #projetos_vinculados = models.CharField('Projetos_vinculados', max_length=200)
      #artigos_vinculados = models.CharField('Artigos_vinculados', max_length=200)
-     biografia = models.CharField('Biografia', max_length=600)
+     biografia = models.CharField('Biografia', max_length=900)
      imagem_pesquisador = models.ImageField('Imagem_Pesquisador', null=True)
      #sobreogrupo = models.ForeignKey(SobreOGrupo, on_delete=models.PROTECT)
      usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
@@ -109,7 +109,7 @@ class Anexos(models.Model):
 
     data_cadastro = models.DateField('Data_Cadastro', default=date.today)
     titulo = models.CharField('Título', max_length=200)
-    descricao = models.CharField('Descrição', max_length=900)
+    descricao = models.CharField('Descrição', max_length=1000)
     nome_periodico = models.CharField('Nome do Periódico', max_length=50)
     arquivo_pdf = models.FileField(upload_to='pdfs/', default='default.pdf')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
