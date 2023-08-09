@@ -346,6 +346,7 @@
       margin-bottom: 30px;
     }
 
+
        
     </style>
 
@@ -402,31 +403,28 @@
         <div class="container">
           
       
-          <div class="row">
+          <div class="row justify-content-center">
             {% for dados in dados_completos %}
-            <div class="col-md-6">
-              <div class="card shadow-sm mb-4">
-                <img src="/media/{{dados.foto}}" class="bd-placeholder-img card-img-top img-fluid" alt="Foto da Notícia">
-                <div id="div" class="card-body">
-                  <h5><strong>{{ dados.titulo }}</strong></h5>
-                  <p><strong>Fonte:</strong> {{ dados.fonte }}</p>
-                  <p><strong>Público Alvo:</strong> {{ dados.publico_alvo }}</p>
-                  <p><strong>Data do Cadastro:</strong> {{ dados.data_cadastro }}</p>
-                  <p><strong>Público Alvo:</strong> {{ dados.publico_alvo }}</p>
-                  
-                <button type="button" class="btn btn-outline-light me-2" style="background-color: #EC7253;">   
-                  <a href="{% url 'detalhe_noticia' cadastro_id=dados.cadastro_id %}" class="nav-link text-white">Ver mais</a></button>
-      
-      
-                  <!-- Restante do conteúdo do card aqui -->
+              <div class="col-md-4">
+                <div class="card shadow-sm mb-4" style="max-height: 600px;"> <!-- Definindo uma altura máxima -->
+                  <img src="/media/{{dados.foto}}" class="bd-placeholder-img card-img-top img-fluid" alt="Foto da Notícia">
+                  <div id="div" class="card-body">
+                    <h5 class="card-title" style="font-size: 1.2rem;"><strong>{{ dados.titulo }}</strong></h5>
+                    <p class="card-text"><strong>Fonte:</strong> {{ dados.fonte }}</p>
+                    <p class="card-text"><strong>Público Alvo:</strong> {{ dados.publico_alvo }}</p>
+                    <p class="card-text"><strong>Data do Cadastro:</strong> {{ dados.data_cadastro }}</p>
+                    <button type="button" class="btn btn-outline-light me-2" style="background-color: #EC7253;">   
+                      <a href="{% url 'detalhe_noticia' cadastro_id=dados.cadastro_id %}" class="nav-link text-white">Ver mais</a>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
             {% empty %}
-           
+            <li class="artigo-item">
+              Nenhuma notícia encontrada.
+          </li>
             {% endfor %}
           </div>
-     
 
     </div>
 

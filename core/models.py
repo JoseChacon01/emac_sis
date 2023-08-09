@@ -69,26 +69,26 @@ class Endereco(models.Model):
 
 class Cadastros(models.Model):
      data_cadastro = models.DateField('Data_Cadastro', default=date.today)
-     titulo = models.CharField('Titulo', max_length=50)
-     descricao = models.CharField('Descricao', max_length=300)
+     titulo = models.CharField('Titulo', max_length=170)
+     descricao = models.CharField('Descricao', max_length=1000)
      tipo_do_trabalho = models.CharField('Tipo_trabalho', max_length=50, default='')
      usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
 
 class Noticias(models.Model):
-     fonte = models.CharField('Fonte', max_length=150)
-     publico_alvo = models.CharField ('Publico_alvo', max_length=150)
+     fonte = models.CharField('Fonte', max_length=350)
+     publico_alvo = models.CharField ('Publico_alvo', max_length=350)
      cadastro = models.ForeignKey(Cadastros, on_delete=models.PROTECT)
-     urlLink = models.URLField('UrlLink', max_length=200, default='')
+     urlLink = models.URLField('UrlLink', max_length=300, default='')
      arquivo_pdf = models.FileField(upload_to='pdfs/', default='default.pdf',null=True)
      foto = models.ImageField(upload_to='noticias', null=True)
 
 
 class Eventos(models.Model):
-     formato = models.CharField('Formato', max_length=50)
-     local = models.CharField('Local', max_length=100)
+     formato = models.CharField('Formato', max_length=100)
+     local = models.CharField('Local', max_length=200)
      data_evento = models.DateField('Data_evento')
      foto = models.ImageField(upload_to='eventos', null=True)
-     urlLink = models.URLField('UrlLink', max_length=200, default='')
+     urlLink = models.URLField('UrlLink', max_length=250, default='')
      arquivo_pdf = models.FileField(upload_to='pdfs/', default='default.pdf',null=True)
      cadastro = models.ForeignKey(Cadastros, on_delete=models.PROTECT)
 

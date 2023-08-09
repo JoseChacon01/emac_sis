@@ -155,9 +155,9 @@
           <div class="row text-center align-items-center border border-dark rounded-4 mb-4 py-2 px-5 mx-5">
             <div class="d-flex flex-wrap align-items-center justify-content-center py-3 ">
               <ul class="nav nav-pills">
-                <li class="nav-item"><a href="#" class="nav-link text-white"><img src="https://portal.ifrn.edu.br/media/images/Reuniao_Ordinaria_CONSUP_Prancheta.2e16d0ba.fill-250x250.png" class="rounded icone" alt="..." width="200rem" height="200rem"></a></li>
-                <li class="nav-item"><a href="#" class="nav-link text-white"><img src="https://portal.ifrn.edu.br/media/images/29402_Programas_de_Assistencia_Est.2e16d0ba.fill-250x250_FMnAyXy.png" class="rounded icone" alt="..." width="200rem" height="200rem"></a></li>
-                <li class="nav-item"><a href="" class="nav-link text-white"><img src="https://portal.ifrn.edu.br/media/images/28116_Campi_do_IFRN_atualizam_info.2e16d0ba.fill-250x250.png" class="rounded icone" alt="..." width="200rem" height="200rem"></a></li>
+                <li class="nav-item"><a href="{% url 'noticias_listar' %}" class="nav-link text-white"><img src="{% static 'img/index/oportunidades1.png' %}" class="rounded icone" alt="Oportunidades" width="200rem" height="200rem"></a></li>
+                <li class="nav-item"><a href="{% url 'noticias_listar' %}" class="nav-link text-white"><img src="{% static 'img/index/editais1.png' %}" class="rounded icone" alt="Editais" width="200rem" height="200rem"></a></li>
+                <li class="nav-item"><a href="{% url 'noticias_listar' %}" class="nav-link text-white"><img src="{% static 'img/index/carreiras1.png' %}" class="rounded icone" alt="Carreiras" width="200rem" height="200rem"></a></li>
               </ul>              
             </div>
             <p class="pt-4"><a class="text-black" href="{% url 'noticias_listar' %}">Consultar</a></p>

@@ -62,7 +62,7 @@
         <thead>
             <tr>
                 <th scope="col">Título</th>
-                <th scope="col">Descrição</th>
+                <th scope="col">Editora</th>
                 <th scope="col">Visualisar</th>
                 <th scope="col">Status</th>
                 <th scope="col">Deferido Por</th>
@@ -76,7 +76,7 @@
                 <tbody class="table-group-divider">
                     <tr>
                         <td>{{ artigo.titulo }}</td>
-                        <td>{{ artigo.descricao }}</td>
+                        <td>{{ artigo.nome_editora }}</td>
                         <td><a href="{{ artigo.arquivo_pdf.url }}" target="_blank">Artigo</a></td>
                         <td class="{% if artigo.status == 'deferido' %}text-success{% elif artigo.status == 'indeferido' %}text-danger{% endif %}"><strong>{{ artigo.status }}</strong></td>
 
@@ -89,11 +89,8 @@
                         <td>{{ artigo.data_deferimento }}</td>
                        {% endif %}
 
-                        {% if artigo.disable_exclusao %}
-                            <td><button class="btn btn-danger border-light" disabled>Excluir</button></td>
-                        {% else %}
+
                             <td><a href="{% url 'excluir_artigo' artigo.id %}"><button type="button" class="btn btn-danger border-light">Excluir</button></a></td>
-                        {% endif %}
                     </tr>
                 </tbody>
             {% endfor %}
