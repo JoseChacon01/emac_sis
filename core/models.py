@@ -43,11 +43,8 @@ class SobreOGrupo(models.Model):
 class Pesquisadores(models.Model):
      nome = models.CharField('Nome', max_length=200, default='')
      urlcurriculo = models.URLField('UrlCurriculo', max_length=200, default='')
-     #projetos_vinculados = models.CharField('Projetos_vinculados', max_length=200)
-     #artigos_vinculados = models.CharField('Artigos_vinculados', max_length=200)
      biografia = models.CharField('Biografia', max_length=900)
      imagem_pesquisador = models.ImageField('Imagem_Pesquisador', null=True)
-     #sobreogrupo = models.ForeignKey(SobreOGrupo, on_delete=models.PROTECT)
      usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
 
 
@@ -92,12 +89,6 @@ class Eventos(models.Model):
      arquivo_pdf = models.FileField(upload_to='pdfs/', default='default.pdf',null=True)
      cadastro = models.ForeignKey(Cadastros, on_delete=models.PROTECT)
 
-
-
-
-# class Projetos(models.Model):
-#      cadastro = models.ForeignKey(Cadastros, on_delete=models.PROTECT)
-#      pesquisadores = models.ForeignKey(Pesquisadores, on_delete=models.PROTECT)
      
 
 class Anexos(models.Model):
@@ -119,6 +110,8 @@ class Anexos(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, default=12)
     nome_editora = models.CharField('Nome da Editora', max_length=100)
     nome_instituicao = models.CharField('Nome da Instituição', max_length=200)
+    motivo_indeferimento = models.TextField('Motivo do Indeferimento', blank=True)
+
 
     @staticmethod
     def get_default_pdf():

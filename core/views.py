@@ -7,46 +7,21 @@ from django.contrib.auth import logout #função responsável pelo logout
 from django.contrib.auth.decorators import permission_required #Definindo que o acesso à View só será feito por usuários que tiverem a permissão permissao_adm_1 definida:
 from django.contrib.auth.models import Permission #Primeiro passo: Importar o objeto Permission em Views:
 from django.contrib.auth.forms import UserCreationForm #Registro: UserCreationForm: é um ModelForm que já vem implementado no Django, com 3 campos para o registro de usuário: username, password1 e password2.
-from .forms import  CategoriaForm
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Categorias, Usuario, Endereco, Noticias, Cadastros, Eventos
-from .forms import UsuarioForm
-from .forms import EnderecoForm
-from .forms import NoticiasForm , CadastrosForm
-from .forms import EventosForm
-
-
-
-
-
-
-
-
+from .models import *
+from .forms import *
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-
-#from .forms import UsuarioForm
 from django.shortcuts import get_list_or_404
-from .forms import AddPermissionForm
-from django.shortcuts import get_object_or_404
-from .models import Anexos
-from .forms import AnexosForm
-from django.contrib.auth.models import User
 from django.shortcuts import redirect, get_object_or_404
-from .forms import AdicionarImagemForm
 from datetime import datetime
 from django.utils import timezone
-from .forms import SobreOGrupoForm
-from .models import SobreOGrupo
-from .models import Pesquisadores
-from .forms import PesquisadoresForm
 from django.shortcuts import render
-from .models import Anexos
 
 
-# def home (resquest):
-#     return render(resquest, "index.html")
+
+
 
 def home(request):
     grupos = SobreOGrupo.objects.all()
@@ -66,11 +41,11 @@ def pesquisadores(request):
     pesquisadores = Pesquisadores.objects.all()
     return render(request, 'pesquisadores.html', {'pesquisadores': pesquisadores})
 
-# def pesquisadores(request, pesquisador_id):
-#     pesquisador = Pesquisadores.objects.get(id=pesquisador_id)
-#     return render(request, 'pesquisadores.html', {'pesquisador': pesquisador})
 
 
+
+
+#IMAGEM DE PERFIL
 @login_required
 def perfil(request):
      # Recupere o usuário logado
@@ -80,8 +55,6 @@ def perfil(request):
     tem_imagem_perfil = bool(user.imagem)
 
     return render(request, 'perfil.html', {'user': user, 'tem_imagem_perfil': tem_imagem_perfil})
-
-
 
 
 
@@ -96,6 +69,7 @@ def adicionar_imagem_perfil(request):
         form = AdicionarImagemForm()
     return render(request, 'adicionar_imagem.html', {'form': form})
 
+
 @login_required
 def excluir_imagem_perfil(request):
     # Recupere o usuário logado
@@ -104,6 +78,7 @@ def excluir_imagem_perfil(request):
     user.imagem = None
     user.save()
     return redirect('perfil')  # Redirecionar para a página de perfil após a exclusão
+
 
 @login_required
 def editar_imagem_perfil(request):
@@ -150,6 +125,8 @@ def autenticacao(request):
     else:
         return render(request, 'registration/login.html')
     
+
+
 
 
 @login_required
@@ -236,7 +213,7 @@ def dados(request, id):
 
 
 
-#Categoria
+#CATEGORIA
 @login_required 
 def listar_categoria(request):       
     categoria = Categorias.objects.all()
@@ -290,7 +267,7 @@ def remover_categoria(request, id):
 
 
 
-#Endereçooo
+#ENDEREÇO
 @login_required 
 def listar_endereco(request):       
     endereco = Endereco.objects.filter(usuario=request.user)
@@ -490,15 +467,12 @@ def cadastro_evento(request):
         form2 = EventosForm()
 
     return render(request, 'cadastro_evento.html', {'form1': form1, 'form2': form2})
-# def teste(request, idUsuario):
-#     usuario = Usuario.objects.get(id=idUsuario)
-#     grupoAdmin = Group.objects.get(name='Administradores') 
-#     grupoAdmin.user_set.add(usuario)
-#     return redirect('add-admin')
 
 
 
-#lista de usuarios
+
+
+#lista de usuarios - TESTE
 
 def user_list(request):
     usuario = Usuario.objects.all()
@@ -513,7 +487,7 @@ def sucesso_add_permission(request):
 
 
 
-#Atribuindo permissões a usuarios
+#ATRIBUNDO PERMISSÕES A USUARIOS
 
 @login_required
 def add_permission(request, user_id):
@@ -541,15 +515,7 @@ def add_permission(request, user_id):
 
 
 
-
-
-
-
-
-
-
-
-
+#ARTIGOS - SUBMETER
 @login_required
 def submeter_artigo(request):
     if request.method == 'POST':
@@ -565,6 +531,7 @@ def submeter_artigo(request):
     return render(request, 'submeter_artigo.html', {'form': form})
 
 
+#ARTIGOS - LISTAR
 @login_required
 def listar_artigos(request):
     if request.user.is_superuser:
@@ -585,11 +552,17 @@ def listar_artigos(request):
 
 
 
+#ARTIGOS - DETALHES
 @login_required
 def detalhes_artigo(request, artigo_id):
     artigo = get_object_or_404(Anexos, id=artigo_id)
     return render(request, 'detalhes_artigo.html', {'artigo': artigo})
 
+
+@login_required
+def visualizar_motivo_indeferimento(request, artigo_id):
+    artigo = get_object_or_404(Anexos, id=artigo_id)
+    return render(request, 'visualizar_motivo_indeferimento.html', {'artigo': artigo})
 
 
 @login_required
@@ -608,9 +581,9 @@ def excluir_artigo(request, artigo_id):
     artigo.delete()
     return redirect('meus_artigos')
 
-
-
 from django.shortcuts import redirect, get_object_or_404
+
+
 
 @login_required
 def deferir_artigo(request, artigo_id):
@@ -620,6 +593,8 @@ def deferir_artigo(request, artigo_id):
     artigo.data_deferimento = timezone.now() 
     artigo.save()
     return redirect('listar_artigos')
+
+
 
 @login_required
 def indeferir_artigo(request, artigo_id):
@@ -633,6 +608,7 @@ def indeferir_artigo(request, artigo_id):
 
 #publicado automaticamente
 
+#ARTIGOS - FILTRADONDO OS ARTIGOS COM STATUS "DEFERIDO" E EXIBINDO NA PAGINA "artigos_e_projetos"
 def artigos_e_projetos(request):
     artigos_deferidos = Anexos.objects.filter(status='deferido')
 
@@ -642,6 +618,23 @@ def artigos_e_projetos(request):
         artigos_deferidos = artigos_deferidos.filter(titulo__icontains=query) | artigos_deferidos.filter(descricao__icontains=query)
 
     return render(request, 'artigos_e_projetos.html', {'artigos_deferidos': artigos_deferidos})
+
+
+
+@login_required
+def indeferir_artigo(request, artigo_id):
+    artigo = get_object_or_404(Anexos, id=artigo_id, status='pendente')
+    
+    if request.method == 'POST':
+        motivo = request.POST.get('motivo_indeferimento')  # Obtém o motivo do formulário
+        artigo.motivo_indeferimento = motivo  # Atribui o motivo ao artigo
+        artigo.status = 'indeferido'
+        artigo.deferido_por = request.user
+        artigo.data_deferimento = timezone.now()
+        artigo.save()
+        return redirect('listar_artigos')
+
+    return render(request, 'motivo_indeferimento.html', {'artigo': artigo})
 
 
 
@@ -747,6 +740,8 @@ def detalhe_evento(request, cadastro_id):
         return render(request, 'detalhe_evento.html', {'dados': dados})
     else:
         return render(request, 'evento_nao_encontrado.html')
+    
+
 
 #SOBRE O GRUPO
 @login_required
@@ -792,6 +787,8 @@ def sobre(request):
     return render(request, 'sobre.html', {'grupos': grupos})
 
 
+
+#CADASTRO DE PESQUISADOR
 @login_required
 def cadastrar_pesquisador(request):
     if request.method == 'POST':
@@ -807,9 +804,11 @@ def cadastrar_pesquisador(request):
     return render(request, 'cadastrar_pesquisador.html', {'form': form})
 
 
+
 def listar_pesquisadores(request):
     pesquisadores = Pesquisadores.objects.all()
     return render(request, 'listar_pesquisadores.html', {'pesquisadores': pesquisadores})
+
 
 @login_required
 def editar_pesquisador(request, pesquisador_id):
@@ -825,13 +824,10 @@ def editar_pesquisador(request, pesquisador_id):
     return render(request, 'editar_pesquisador.html', {'form': form})
 
 
+
 @login_required
 def excluir_pesquisador(request, pesquisador_id):
     pesquisador = get_object_or_404(Pesquisadores, id=pesquisador_id)
     pesquisador.delete()
     return redirect('listar_pesquisadores')
 
-
-# def ultimas_noticias(request):
-#     ultimas_3_noticias = Noticias.objects.order_by('data_cadastro')[:3]
-#     return render(request, 'index.html', {'noticias': ultimas_3_noticias})

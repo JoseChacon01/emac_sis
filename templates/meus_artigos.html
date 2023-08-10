@@ -65,8 +65,9 @@
                 <th scope="col">Editora</th>
                 <th scope="col">Visualisar</th>
                 <th scope="col">Status</th>
-                <th scope="col">Deferido Por</th>
-                <th scope="col">Data de Deferimento</th>
+                <th scope="col">Avaliador</th>
+                <th scope="col">Data da Avaliação</th>
+                <th scope="col"></th>
                 <th scope="col"></th>
               </tr>
         </thead>
@@ -89,9 +90,11 @@
                         <td>{{ artigo.data_deferimento }}</td>
                        {% endif %}
 
-
+                            <td><a href="{% url 'visualizar_motivo_indeferimento' artigo.id %}"><button type="button" class="btn btn-primary border-light">Motivo</button></a>
+                       
                             <td><a href="{% url 'excluir_artigo' artigo.id %}"><button type="button" class="btn btn-danger border-light">Excluir</button></a></td>
-                    </tr>
+                            </td>
+                        </tr>
                 </tbody>
             {% endfor %}
         {% else %}

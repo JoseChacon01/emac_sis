@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Motivo do Indeferimento</title>
+    <link rel="shortcut icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E08E79;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: rgb(238, 118, 85); 
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: rgb(204, 101, 73);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Indeferir Artigo</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="motivo_indeferimento">Motivo do Indeferimento:</label>
+            <textarea id="motivo_indeferimento" name="motivo_indeferimento" rows="4" cols="50"></textarea>
+            <br>
+            <input type="submit" value="Indeferir">
+        </form>
+    </div>
+</body>
+</html>

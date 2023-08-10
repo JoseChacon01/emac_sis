@@ -81,12 +81,24 @@ class SobreOGrupoForm(forms.ModelForm):
 class AnexosForm(forms.ModelForm):
     class Meta:
         model = Anexos
-        fields = ['titulo', 'descricao', 'nome_periodico', 'arquivo_pdf', 'issn', 'nome_editora', 'nome_instituicao']
+        fields = ['titulo', 'descricao', 'nome_periodico', 'arquivo_pdf', 'issn', 'nome_editora', 'nome_instituicao', 'motivo_indeferimento']
+        labels = { #rótulos personalizados
+            'motivo_indeferimento': 'Motivo do Indeferimento'
+        }
 
     def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             for field_name in self.fields:
                 self.fields[field_name].widget.attrs.update({'class': 'input_box', 'required': 'required'})
+
+
+# class MotivoIndeferimentoForm(forms.ModelForm):
+#     class Meta:
+#         model = Anexos
+#         fields = ['motivo_indeferimento']
+#         labels = { #rótulos personalizados
+#             'motivo_indeferimento': 'Motivo do Indeferimento'
+#         }
 
 
 class PesquisadoresForm(forms.ModelForm):

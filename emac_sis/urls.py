@@ -129,6 +129,9 @@ urlpatterns = [
     path('deferir-artigo/<int:artigo_id>/', deferir_artigo, name='deferir_artigo'),
     path('indeferir-artigo/<int:artigo_id>/', indeferir_artigo, name='indeferir_artigo'),
 
+    path('indeferir_artigo/<int:artigo_id>/', indeferir_artigo, name='indeferir_artigo'),
+    path('visualizar-motivo-indeferimento/<int:artigo_id>/', visualizar_motivo_indeferimento, name='visualizar_motivo_indeferimento'),
+
     path('pagina_de_sucesso/', pagina_de_sucesso, name='pagina_de_sucesso'),
 
     path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
