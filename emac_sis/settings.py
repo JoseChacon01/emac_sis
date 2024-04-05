@@ -29,8 +29,10 @@ SECRET_KEY = 'django-insecure-1m95b!sti$8^x37fv(whwj@_is683m$zte!_ji@w$ogb^3_f_c
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#DEBUG = False
 
 ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['emac.nic.ifrn.edu.br']
 
 
 # Application definition
@@ -85,6 +87,22 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'localhost', 
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
+    }
+}
+'''
 
 
 # Password validation
